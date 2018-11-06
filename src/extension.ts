@@ -122,10 +122,10 @@ class ShapeCompletionItem implements QuickPickItem, CompletionItem {
     public render() {
         let rendered = "";
         let editor = window.activeTextEditor;
-        if (!editor) {
-            return new SnippetString("");
+        let selection = "";
+        if (editor) {
+            selection = editor.document.getText(editor.selection);
         }
-        let selection = editor.document.getText(editor.selection);
         let args = (this.args || []).map(render_argspec(selection)).join("");
 
         switch (this.type) {
