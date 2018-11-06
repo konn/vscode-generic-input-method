@@ -3,13 +3,17 @@
     "displayName": "LaTeX Shape Completion",
     "description": "YaTeX-like image and Greek completion for LaTeX",
     "version": "0.0.1",
-    "publisher": "konn",
+    "publisher": "mr-konn",
     "engines": {
         "vscode": "^1.28.0"
     },
     "categories": [
         "Other"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/konn/vscode-latex-shape-completion"
+    },
     "activationEvents": [
         "onLanguage:latex"
     ],
