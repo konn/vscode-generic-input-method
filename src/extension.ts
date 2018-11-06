@@ -1,7 +1,12 @@
 'use strict';
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import { workspace, commands, window, SnippetString, ExtensionContext, WorkspaceConfiguration, QuickPickItem } from 'vscode';
+import {
+    languages, workspace, window, SnippetString,
+    CompletionItem, ExtensionContext,
+    WorkspaceConfiguration, QuickPickItem,
+    TextDocument, Position, Range, TextEdit
+} from 'vscode';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -11,31 +16,28 @@ export function activate(context: ExtensionContext) {
     console.log('Congratulations, your extension "latex-shape-completion" is now active!');
     let conf: WorkspaceConfiguration = workspace.getConfiguration();
 
-    function register(cmd_name: string, dictionary: string) {
-        let dict: ShapeCompletionItem[] = conf.get(dictionary) || [];
-        let disposable = commands.registerCommand(`extension.${cmd_name}`, () => {
-            // The code you place here will be executed every time your command is executed
-            let editor = window.activeTextEditor;
-
-            // Display a message box to the user
-            window.showQuickPick(dict).then(item => {
-                if (!item) {
-                    return;
-                } else {
-                    if (!editor) {
-                        return;
+    function register(cmd_name: string, dictionary: string, ...keys: string[]) {
+        let dict: ShapeCompletionItemIF[] = conf.get(dictionary) || [];
+        let disposable = languages.registerCompletionItemProvider("latex", {
+            provideCompletionItems(document: TextDocument, position: Position) {
+                return dict.map(i => {
+                    let item = new ShapeCompletionItem(i);
+                    let start = position;
+                    if (position.character > 0) {
+                        start = new Position(position.line, position.character - 1);
                     }
-                    console.log(`Selected: ${JSON.stringify(item)}`);
-                    editor.insertSnippet(render(item));
-                }
-            });
-        });
+                    let range = new Range(start, position);
+                    item.additionalTextEdits = [TextEdit.delete(range)];
+                    return item;
+                });
+            }
+        }, ...keys);
         context.subscriptions.push(disposable);
     }
 
-    register("greek-complete", "greek-dictionary");
-    register("image-complete", "image-dictionary");
-    register("font-complete", "font-dictionary");
+    register("greek-complete", "greek-dictionary", ":");
+    register("image-complete", "image-dictionary", ";");
+    register("font-complete", "font-dictionary", "@");
 }
 
 // this method is called when your extension is deactivated
@@ -80,50 +82,81 @@ function render_argspec(selection: string): (spec: ArgSpec, i: number) => string
 
 enum ArgKind { Fixed = "fixed", Optional = "optional" }
 
-interface ShapeCompletionItem extends QuickPickItem {
+interface ShapeCompletionItemIF {
     label: string;
     body: string;
+    filterText: string;
     description: string;
     type?: CommandType;
     args?: ArgSpec[];
 }
 
-
-function render(value: ShapeCompletionItem): SnippetString {
-    let rendered = "";
-    let editor = window.activeTextEditor;
-    if (!editor) {
-        return new SnippetString("");
+class ShapeCompletionItem implements QuickPickItem, CompletionItem {
+    public insertText: SnippetString;
+    public documentation: string;
+    public label: string;
+    public body: string;
+    public filterText: string;
+    public description: string;
+    public type?: CommandType;
+    public args?: ArgSpec[];
+    public additionalTextEdits?: TextEdit[];
+    public commitCharacters?: string[];
+    constructor(
+        item: ShapeCompletionItemIF
+    ) {
+        this.label = item.label;
+        this.body = item.body;
+        this.filterText = item.filterText;
+        this.description = item.description;
+        this.type = item.type;
+        this.args = item.args;
+        this.insertText = this.render();
+        this.documentation = this.description;
+        this.commitCharacters = [" "];
     }
-    let selection = editor.document.getText(editor.selection);
-    let args = (value.args || []).map(render_argspec(selection)).join("");
 
-    switch (value.type) {
-        case CommandType.Environment:
-            rendered = `\\begin{${value.body}}${args}
-  $1
-\\end{${value.body}}`;
-            break;
-        case CommandType.Large:
-            rendered = `{\\${value.body} $1}`;
-            break;
-        case CommandType.Section:
-            if (!value.args || value.args.length === 0) {
-                if (selection.length === 0) {
-                    rendered = `\\${value.body}{$1}`;
+    /**
+     * render
+     */
+    public render() {
+        let rendered = "";
+        let editor = window.activeTextEditor;
+        if (!editor) {
+            return new SnippetString("");
+        }
+        let selection = editor.document.getText(editor.selection);
+        let args = (this.args || []).map(render_argspec(selection)).join("");
+
+        switch (this.type) {
+            case CommandType.Environment:
+                rendered = `\\begin{${this.body}}${args}
+          $1
+        \\end{${this.body}}`;
+                break;
+            case CommandType.Large:
+                rendered = `{\\${this.body} $1}`;
+                break;
+            case CommandType.Section:
+                if (!this.args || this.args.length === 0) {
+                    if (selection.length === 0) {
+                        rendered = `\\${this.body}{$1}`;
+                    } else {
+                        rendered = `\\${this.body}{${selection}}`;
+                    }
                 } else {
-                    rendered = `\\${value.body}{${selection}}`;
+                    rendered = `\\${this.body}${args}`;
                 }
-            } else {
-                rendered = `\\${value.body}${args}`;
-            }
-            break;
-        case CommandType.Text:
-            rendered = value.body;
-            break;
+                break;
+            case CommandType.Text:
+                rendered = this.body;
+                break;
 
-        default:
-            rendered = `\\${value.body}`;
+            default:
+                rendered = `\\${this.body}`;
+        }
+        return new SnippetString(rendered);
     }
-    return new SnippetString(rendered);
+
 }
+

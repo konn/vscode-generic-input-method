@@ -15,25 +15,6 @@
     ],
     "main": "./out/extension",
     "contributes": {
-        "keybindings": [
-            {
-                "command": "extension.image-complete",
-                "key": ";",
-                "when": "editorTextFocus && editorLangId == latex"
-            },
-            {
-                "key": "ctrl+[BracketLeft]",
-                "mac": "cmd+[BracketLeft]",
-                "command": "extension.greek-complete",
-                "when": "editorTextFocus && editorLangId == latex"
-            },
-            {
-                "key": "ctrl+[Quote]",
-                "mac": "cmd+[Quote]",
-                "command": "extension.font-complete",
-                "when": "editorTextFocus && editorLangId == latex"
-            }
-        ],
         "commands": [
             {
                 "command": "extension.greek-complete",
