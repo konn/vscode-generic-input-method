@@ -3,9 +3,10 @@
 // Import the module and reference it with the alias vscode in your code below
 import {
     languages, workspace, window, SnippetString,
-    CompletionItem, ExtensionContext,
+    CompletionItem, ExtensionContext, env,
     WorkspaceConfiguration, QuickPickItem,
-    TextDocument, Position, Range, TextEdit
+    TextDocument, Position, Range, TextEdit,
+    CancellationToken, CompletionContext, CompletionTriggerKind, commands
 } from 'vscode';
 
 // this method is called when your extension is activated
@@ -16,24 +17,38 @@ export function activate(context: ExtensionContext) {
     console.log('Congratulations, your extension "latex-shape-completion" is now active!');
     let conf: WorkspaceConfiguration = workspace.getConfiguration();
 
-    function register(cmd_name: string, dictionary: string, ...keys: string[]) {
-        let dict: ShapeCompletionItemIF[] = conf.get(dictionary) || [];
+    function register_completer(cmd_name: string, dictionary: string, ...keys: string[]) {
+        const dict: ShapeCompletionItemIF[] = conf.get(dictionary) || [];
         let disposable = languages.registerCompletionItemProvider("latex", {
-            provideCompletionItems(document: TextDocument, position: Position) {
-                return dict.map(i => {
-                    let item = new ShapeCompletionItem(i);
-                    let start = position;
-                    if (position.character > 0) {
-                        start = new Position(position.line, position.character - 1);
-                    }
-                    let range = new Range(start, position);
-                    item.additionalTextEdits = [TextEdit.delete(range)];
-                    return item;
-                });
+            provideCompletionItems(
+                document: TextDocument,
+                position: Position,
+                token: CancellationToken,
+                context: CompletionContext
+            ) {
+                if (context.triggerKind === CompletionTriggerKind.TriggerCharacter &&
+                    keys.some(c => c === context.triggerCharacter)) {
+                    return dict.map(i => {
+                        let item = new ShapeCompletionItem(i);
+                        let start = position;
+                        if (position.character > 0) {
+                            start = new Position(position.line, position.character - 1);
+                        }
+                        let range = new Range(start, position);
+                        item.additionalTextEdits = [TextEdit.delete(range)];
+                        return item;
+                    });
+                } else {
+                    return [];
+                }
             }
         }, ...keys);
         context.subscriptions.push(disposable);
     }
+
+    register_completer("greek-complete", "greek-dictionary", ":");
+    register_completer("image-complete", "image-dictionary", ";");
+    register_completer("font-complete", "font-dictionary", "@");
 
     register("greek-complete", "greek-dictionary", ":");
     register("image-complete", "image-dictionary", ";");
