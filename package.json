@@ -33,6 +33,24 @@
                 "title": "Complete Math Font"
             }
         ],
+        "keybindings": [
+            {
+                "command": "extension.image-complete",
+                "key": "ctrl+c ;",
+                "when": "editorTextFocus && editorLangId == latex"
+            },
+            {
+                "command": "extension.greek-complete",
+                "key": "ctrl+c [Quote]",
+                "when": "editorTextFocus && editorLangId == latex"
+            },
+            {
+                "command": "extension.font-complete",
+                "key": "ctrl+c [BracketLeft]",
+                "mac": "cmd+[BracketLeft]",
+                "when": "editorTextFocus && editorLangId == latex"
+            }
+        ],
         "configuration": [
             {
                 "title": "Image Completion Configuration",
@@ -396,12 +414,6 @@
                                 "label": "root",
                                 "body": "sqrt",
                                 "description": "√"
-                            },
-                            {
-                                "label": ";",
-                                "body": ";",
-                                "description": ";",
-                                "type": "text"
                             },
                             {
                                 "label": "A",
@@ -1028,11 +1040,6 @@
                                 "label": "no",
                                 "body": "notag",
                                 "description": "(notag)"
-                            },
-                            {
-                                "label": ":",
-                                "body": "colon",
-                                "description": ":"
                             },
                             {
                                 "label": "Diamond",

@@ -50,9 +50,31 @@ export function activate(context: ExtensionContext) {
     register_completer("image-complete", "image-dictionary", ";");
     register_completer("font-complete", "font-dictionary", "@");
 
-    register("greek-complete", "greek-dictionary", ":");
-    register("image-complete", "image-dictionary", ";");
-    register("font-complete", "font-dictionary", "@");
+    function register_command(cmd_name: string, dictionary: string) {
+        let dict: ShapeCompletionItem[] = conf.get(dictionary) || [];
+        let disposable = commands.registerCommand(`extension.${cmd_name}`, () => {
+            // The code you place here will be executed every time your command is executed
+            let editor = window.activeTextEditor;
+
+            // Display a message box to the user
+            window.showQuickPick(dict).then(item => {
+                if (!item) {
+                    return;
+                } else {
+                    if (!editor) {
+                        return;
+                    }
+                    console.log(`Selected: ${JSON.stringify(item)}`);
+                    editor.insertSnippet((new ShapeCompletionItem(item).render()));
+                }
+            });
+        });
+        context.subscriptions.push(disposable);
+    }
+
+    register_command("greek-complete", "greek-dictionary");
+    register_command("image-complete", "image-dictionary");
+    register_command("font-complete", "font-dictionary");
 }
 
 // this method is called when your extension is deactivated
