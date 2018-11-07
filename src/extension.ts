@@ -3,7 +3,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import {
     languages, workspace, window, SnippetString,
-    CompletionItem, ExtensionContext, env,
+    CompletionItem, ExtensionContext,
     WorkspaceConfiguration, QuickPickItem,
     TextDocument, Position, Range, TextEdit,
     CancellationToken, CompletionContext, CompletionTriggerKind, commands
