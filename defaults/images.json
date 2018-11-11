@@ -1,0 +1,914 @@
+[
+  {
+    "label": "integral",
+    "body": "int",
+    "description": "∫"
+  },
+  {
+    "label": "ointegral",
+    "body": "oint",
+    "description": "∮"
+  },
+  {
+    "label": "sqrt",
+    "body": "sqrt",
+    "description": "√"
+  },
+  {
+    "label": "root",
+    "body": "sqrt",
+    "description": "√"
+  },
+  {
+    "label": "A",
+    "body": "forall",
+    "description": "∀"
+  },
+  {
+    "label": "E",
+    "body": "exists",
+    "description": "∃"
+  },
+  {
+    "label": "E/",
+    "body": "nexists",
+    "description": "∄"
+  },
+  {
+    "label": "!",
+    "body": "neg",
+    "description": "¬"
+  },
+  {
+    "label": "-+",
+    "body": "mp",
+    "description": "∓"
+  },
+  {
+    "label": "f",
+    "body": "frac",
+    "description": "÷"
+  },
+  {
+    "label": "*",
+    "body": "ast",
+    "description": "*"
+  },
+  {
+    "label": "o",
+    "body": "circ",
+    "description": "o"
+  },
+  {
+    "label": "o*",
+    "body": "bullet",
+    "description": "∙"
+  },
+  {
+    "label": ".",
+    "body": "cdot",
+    "description": "⋅"
+  },
+  {
+    "label": "cap",
+    "body": "cap",
+    "description": "∩"
+  },
+  {
+    "label": "cup",
+    "body": "cup",
+    "description": "∪"
+  },
+  {
+    "label": "u+",
+    "body": "uplus",
+    "description": "⊎"
+  },
+  {
+    "label": "|~|",
+    "body": "sqcap",
+    "description": "⊓"
+  },
+  {
+    "label": "|_|",
+    "body": "sqcup",
+    "description": "⊔"
+  },
+  {
+    "label": "v",
+    "body": "vee",
+    "description": "v"
+  },
+  {
+    "label": "^",
+    "body": "wedge",
+    "description": "^"
+  },
+  {
+    "label": "\\\\",
+    "body": "setminus",
+    "description": "⧵"
+  },
+  {
+    "label": ")(",
+    "body": "wr",
+    "description": " ≀"
+  },
+  {
+    "label": "<>",
+    "body": "diamond",
+    "description": "⋄"
+  },
+  {
+    "label": "<|",
+    "body": "triangleleft",
+    "description": "◁"
+  },
+  {
+    "label": "|>",
+    "body": "triangleright",
+    "description": "▷"
+  },
+  {
+    "label": "<||",
+    "body": "lhd",
+    "description": "⊲"
+  },
+  {
+    "label": "||>",
+    "body": "rhd",
+    "description": "⊳"
+  },
+  {
+    "label": "<|-",
+    "body": "unlhd",
+    "description": "⊴"
+  },
+  {
+    "label": "|>-",
+    "body": "unrhd",
+    "description": "⊵"
+  },
+  {
+    "label": "o+",
+    "body": "oplus",
+    "description": "⊕"
+  },
+  {
+    "label": "o-",
+    "body": "ominus",
+    "description": "⊖"
+  },
+  {
+    "label": "ox",
+    "body": "otimes",
+    "description": "⊗"
+  },
+  {
+    "label": "o/",
+    "body": "oslash",
+    "description": "⊘"
+  },
+  {
+    "label": "o.",
+    "body": "odot",
+    "description": "⊙"
+  },
+  {
+    "label": "O",
+    "body": "bigcirc",
+    "description": "○"
+  },
+  {
+    "label": "t",
+    "body": "dagger",
+    "description": "†"
+  },
+  {
+    "label": "tt",
+    "body": "ddagger",
+    "description": "‡"
+  },
+  {
+    "label": "II",
+    "body": "amalg",
+    "description": "⨿"
+  },
+  {
+    "label": "-=",
+    "body": "equiv",
+    "description": "≡"
+  },
+  {
+    "label": "=-",
+    "body": "equiv",
+    "description": "≡"
+  },
+  {
+    "label": "---",
+    "body": "equiv",
+    "description": "≡"
+  },
+  {
+    "label": "(",
+    "body": "subset",
+    "description": "⊂"
+  },
+  {
+    "label": "(-",
+    "body": "subseteq",
+    "description": "⊆"
+  },
+  {
+    "label": ")",
+    "body": "supset",
+    "description": "⊃"
+  },
+  {
+    "label": ")-",
+    "body": "supseteq",
+    "description": "⊇"
+  },
+  {
+    "label": "[",
+    "body": "sqsubset",
+    "description": "⊏"
+  },
+  {
+    "label": "[-",
+    "body": "sqsubseteq",
+    "description": "⊑"
+  },
+  {
+    "label": "]",
+    "body": "sqsupset",
+    "description": "⊐"
+  },
+  {
+    "label": "]-",
+    "body": "sqsupseteq",
+    "description": "⊒"
+  },
+  {
+    "label": "{",
+    "body": "in",
+    "description": "∈"
+  },
+  {
+    "label": "}",
+    "body": "ni",
+    "description": "∋"
+  },
+  {
+    "label": "|-",
+    "body": "vdash",
+    "description": "⊢"
+  },
+  {
+    "label": "-|",
+    "body": "dashv",
+    "description": "⊣"
+  },
+  {
+    "label": "~",
+    "body": "sim",
+    "description": "~"
+  },
+  {
+    "label": "~-",
+    "body": "simeq",
+    "description": "≃"
+  },
+  {
+    "label": "asymp",
+    "body": "asymp",
+    "description": "≍"
+  },
+  {
+    "label": "~~",
+    "body": "approx",
+    "description": "≈"
+  },
+  {
+    "label": "~=",
+    "body": "cong",
+    "description": "≅"
+  },
+  {
+    "label": ".=",
+    "body": "doteq",
+    "description": "≐"
+  },
+  {
+    "label": "o<",
+    "body": "propto",
+    "description": "∝"
+  },
+  {
+    "label": "|=",
+    "body": "models",
+    "description": "⊧"
+  },
+  {
+    "label": "_|_",
+    "body": "perp",
+    "description": "⟂"
+  },
+  {
+    "label": "|",
+    "body": "mid",
+    "description": "|"
+  },
+  {
+    "label": "||",
+    "body": "parallel",
+    "description": "∥"
+  },
+  {
+    "label": "bowtie",
+    "body": "bowtie",
+    "description": "⋈"
+  },
+  {
+    "label": "|><|",
+    "body": "join",
+    "description": "⋈"
+  },
+  {
+    "label": "\\_/",
+    "body": "smile",
+    "description": "⌣"
+  },
+  {
+    "label": "/~\\",
+    "body": "frown",
+    "description": "⌢"
+  },
+  {
+    "label": "<<",
+    "body": "lll",
+    "description": "⋘"
+  },
+  {
+    "label": ">>>",
+    "body": "ggg",
+    "description": "⋙"
+  },
+  {
+    "label": "<=",
+    "body": "Leftarrow",
+    "description": "⇐"
+  },
+  {
+    "label": "<==",
+    "body": "Longleftarrow",
+    "description": "⟸"
+  },
+  {
+    "label": "=>",
+    "body": "Rightarrow",
+    "description": "⇒"
+  },
+  {
+    "label": "==>",
+    "body": "Longrightarrow",
+    "description": "⟹"
+  },
+  {
+    "label": "<=>",
+    "body": "Leftrightarrow",
+    "description": "⇔"
+  },
+  {
+    "label": "<==>",
+    "body": "Longleftrightarrow",
+    "description": "⟺"
+  },
+  {
+    "label": "^||",
+    "body": "Uparrow",
+    "description": "⇑"
+  },
+  {
+    "label": "v||",
+    "body": "Downarrow",
+    "description": "⇓"
+  },
+  {
+    "label": "ne",
+    "body": "nearrow",
+    "description": "↗"
+  },
+  {
+    "label": "nw",
+    "body": "nwarrow",
+    "description": "↖"
+  },
+  {
+    "label": "se",
+    "body": "searrow",
+    "description": "↘"
+  },
+  {
+    "label": "sw",
+    "body": "swarrow",
+    "description": "↙"
+  },
+  {
+    "label": "/-",
+    "body": "leftharpoonup",
+    "description": "↼"
+  },
+  {
+    "label": "\\-",
+    "body": "leftharpoondown",
+    "description": "↽"
+  },
+  {
+    "label": "-/",
+    "body": "rightharpoondown",
+    "description": "⇁"
+  },
+  {
+    "label": "-\\",
+    "body": "rightharpoonup",
+    "description": "⇀"
+  },
+  {
+    "label": "tilde",
+    "body": "tilde",
+    "type": "section",
+    "description": "?̃ (accent)"
+  },
+  {
+    "label": "T",
+    "body": "tilde",
+    "type": "section",
+    "description": "?̃ (accent)"
+  },
+  {
+    "label": "wtilde",
+    "body": "widetilde",
+    "type": "section",
+    "description": "~ (wide accent)"
+  },
+  {
+    "label": "hat",
+    "body": "hat",
+    "description": "?̂ (accent)",
+    "type": "section"
+  },
+  {
+    "label": "what",
+    "body": "widehat",
+    "description": "^ (wide accent)",
+    "type": "section"
+  },
+  {
+    "label": "w^",
+    "body": "widehat",
+    "description": "^ (wide accent)",
+    "type": "section"
+  },
+  {
+    "label": "check",
+    "body": "check",
+    "type": "section",
+    "description": "?̌ (accent)"
+  },
+  {
+    "label": "bar",
+    "body": "bar",
+    "description": "?̄ (accent)",
+    "type": "section"
+  },
+  {
+    "label": "overline",
+    "body": "overline",
+    "description": "_ (long bar)",
+    "type": "section"
+  },
+  {
+    "label": "wbar",
+    "body": "overline",
+    "description": "_ (long bar)",
+    "type": "section"
+  },
+  {
+    "label": "dot",
+    "body": "dot",
+    "description": "?̇ (accent)",
+    "type": "section"
+  },
+  {
+    "label": "ddot",
+    "body": "ddot",
+    "description": "?̈ (accent)"
+  },
+  {
+    "label": "CUP",
+    "body": "bigcup",
+    "description": "⋃"
+  },
+  {
+    "label": "union",
+    "body": "bigcup",
+    "description": "⋃"
+  },
+  {
+    "label": "CAP",
+    "body": "bigcap",
+    "description": "⋂"
+  },
+  {
+    "label": "isc",
+    "body": "bigcap",
+    "description": "⋂"
+  },
+  {
+    "label": "O+",
+    "body": "bigoplus",
+    "description": "⨁ (big)"
+  },
+  {
+    "label": "Ox",
+    "body": "bigotimes",
+    "description": "⨂ (big)"
+  },
+  {
+    "label": "Z",
+    "body": "aleph",
+    "description": "ℵ"
+  },
+  {
+    "label": "|\\|",
+    "body": "aleph",
+    "description": "ℵ"
+  },
+  {
+    "label": "h-",
+    "body": "hbar",
+    "description": "ℏ"
+  },
+  {
+    "label": "l",
+    "body": "ell",
+    "description": "ℓ"
+  },
+  {
+    "label": "wp",
+    "body": "wp",
+    "description": "℘"
+  },
+  {
+    "label": "R",
+    "body": "Re",
+    "description": "ℜ"
+  },
+  {
+    "label": "Im",
+    "body": "Im",
+    "description": "ℑ"
+  },
+  {
+    "label": "mho",
+    "body": "mho",
+    "description": "℧"
+  },
+  {
+    "label": "'",
+    "body": "prime",
+    "description": "′"
+  },
+  {
+    "label": "0",
+    "body": "emptyset",
+    "description": "∅"
+  },
+  {
+    "label": "nabla",
+    "body": "nabla",
+    "description": "∇"
+  },
+  {
+    "label": "\\/",
+    "body": "surd",
+    "description": "√"
+  },
+  {
+    "label": "surd",
+    "body": "surd",
+    "description": "√"
+  },
+  {
+    "label": "top",
+    "body": "top",
+    "description": "⊤"
+  },
+  {
+    "label": "bot",
+    "body": "bot",
+    "description": "⊥"
+  },
+  {
+    "label": "b",
+    "body": "flat",
+    "description": "♭"
+  },
+  {
+    "label": "LT",
+    "body": "natural",
+    "description": "♮"
+  },
+  {
+    "label": "6",
+    "body": "partial",
+    "description": "∂"
+  },
+  {
+    "label": "partial",
+    "body": "partial",
+    "description": "∂"
+  },
+  {
+    "label": "round",
+    "body": "partial",
+    "description": "∂"
+  },
+  {
+    "label": "[]",
+    "body": "Box",
+    "description": "□"
+  },
+  {
+    "label": "no",
+    "body": "notag",
+    "description": "(notag)"
+  },
+  {
+    "label": "Diamond",
+    "body": "Diamond",
+    "description": "◇"
+  },
+  {
+    "label": "3",
+    "body": "triangle",
+    "description": "△"
+  },
+  {
+    "label": "C",
+    "body": "clubsuit",
+    "description": "♣"
+  },
+  {
+    "label": "D",
+    "body": "diamondsuit",
+    "description": "♢"
+  },
+  {
+    "label": "H",
+    "body": "heartsuit",
+    "description": "♡"
+  },
+  {
+    "label": "S",
+    "body": "spadesuit",
+    "description": " ♠"
+  },
+  {
+    "label": "mi",
+    "body": "mathit",
+    "type": "section",
+    "description": "mathit"
+  },
+  {
+    "label": "mr",
+    "body": "mathrm",
+    "type": "section",
+    "description": "mathrm"
+  },
+  {
+    "label": "mb",
+    "body": "mathbf",
+    "type": "section",
+    "description": "mathbf"
+  },
+  {
+    "label": "mt",
+    "body": "mathtt",
+    "type": "section",
+    "description": "mathtt"
+  },
+  {
+    "label": "ms",
+    "body": "mathsf",
+    "type": "section",
+    "description": "mathsf"
+  },
+  {
+    "label": "mc",
+    "body": "mathcal",
+    "type": "section",
+    "description": "mathcal"
+  },
+  {
+    "label": "||",
+    "body": "|",
+    "description": "‖"
+  },
+  {
+    "label": "sum",
+    "body": "sum",
+    "description": "∑"
+  },
+  {
+    "label": "sigma",
+    "body": "sum",
+    "description": "∑"
+  },
+  {
+    "label": "oo",
+    "body": "infty",
+    "description": "∞"
+  },
+  {
+    "label": "\\",
+    "body": "backslash",
+    "description": "＼"
+  },
+  {
+    "label": "...",
+    "body": "cdots",
+    "description": "…"
+  },
+  {
+    "label": "+-",
+    "body": "pm",
+    "description": "±"
+  },
+  {
+    "label": "x",
+    "body": "times",
+    "description": "×"
+  },
+  {
+    "label": "/",
+    "body": "div",
+    "description": "÷"
+  },
+  {
+    "label": "#",
+    "body": "star",
+    "description": "★"
+  },
+  {
+    "label": "/\\-",
+    "body": "bigtriangleup",
+    "description": "△"
+  },
+  {
+    "label": "-\\/",
+    "body": "bigtriangledown",
+    "description": "▽"
+  },
+  {
+    "label": "<",
+    "body": "leq",
+    "description": "<\n-"
+  },
+  {
+    "label": "=<",
+    "body": "leqq",
+    "description": "≦"
+  },
+  {
+    "label": ">",
+    "body": "geq",
+    "description": ">\n-"
+  },
+  {
+    "label": ">=",
+    "body": "geqq",
+    "description": "≧"
+  },
+  {
+    "label": "=:",
+    "body": "fallingdotseq",
+    "description": "≒"
+  },
+  {
+    "label": "-<",
+    "body": "prec",
+    "description": "く"
+  },
+  {
+    "label": "-<=",
+    "body": "preceq",
+    "description": "く\n="
+  },
+  {
+    "label": "<<",
+    "body": "ll",
+    "description": "《"
+  },
+  {
+    "label": ">>",
+    "body": "gg",
+    "description": "》"
+  },
+  {
+    "label": "<-",
+    "body": "leftarrow",
+    "description": "←"
+  },
+  {
+    "label": "<--",
+    "body": "longleftarrow",
+    "description": "⟵"
+  },
+  {
+    "label": "->",
+    "body": "rightarrow",
+    "description": "→"
+  },
+  {
+    "label": "-->",
+    "body": "longrightarrow",
+    "description": "⟶"
+  },
+  {
+    "label": "<->",
+    "body": "leftrightarrow",
+    "description": "↔"
+  },
+  {
+    "label": "<-->",
+    "body": "longleftrightarrow",
+    "description": "⟷"
+  },
+  {
+    "label": "^|",
+    "body": "uparrow",
+    "description": "↑"
+  },
+  {
+    "label": "v|",
+    "body": "downarrow",
+    "description": "↓"
+  },
+  {
+    "label": "|->",
+    "body": "mapsto",
+    "description": "↦"
+  },
+  {
+    "label": "<-)",
+    "body": "hookleftarrow",
+    "description": "↩"
+  },
+  {
+    "label": "(->",
+    "body": "hookrightarrow",
+    "description": "↪"
+  },
+  {
+    "label": "vec",
+    "body": "vec",
+    "description": "⃗ (accent)"
+  },
+  {
+    "label": "~>",
+    "body": "overrightarrow",
+    "description": "⟶AB (long accent)"
+  },
+  {
+    "label": "VEC",
+    "body": "overrightarrow",
+    "description": "⟶AB (long accent)"
+  },
+  {
+    "label": "prod",
+    "body": "prod",
+    "description": "∏"
+  },
+  {
+    "label": "angle",
+    "body": "angle",
+    "description": "∠"
+  },
+  {
+    "label": "/_",
+    "body": "angle",
+    "description": "∠"
+  },
+  {
+    "label": ".'.",
+    "body": "therefore",
+    "description": "∴"
+  },
+  {
+    "label": "'.'",
+    "body": "because",
+    "description": "∵"
+  }
+]
