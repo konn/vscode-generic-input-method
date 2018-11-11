@@ -53,13 +53,12 @@
     ],
     "configuration": [
       {
-        "title": "General Input Method Configuration",
         "type": "object",
+        "title": "General Input Method Configuration",
         "properties": {
-          "input-methods": {
-            "title": "Input Method Configurations",
+          "generic-input-methods.input-methods": {
+            "description": "Input Method Definitions",
             "type": "array",
-            "commandName": "text.math",
             "default": [
               {
                 "name": "LaTeX Font Completion",
@@ -99,6 +98,7 @@
               },
               {
                 "name": "Unicode Math",
+                "commandName": "text.math",
                 "languages": [
                   "markdown"
                 ],

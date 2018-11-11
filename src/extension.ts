@@ -23,7 +23,10 @@ import InputMethod, { InputMethodConf } from "./input_method";
 export function activate(context: ExtensionContext) {
   let conf: WorkspaceConfiguration = workspace.getConfiguration();
 
-  let inputMethods: InputMethodConf[] = conf.get("input-methods", []);
+  let inputMethods: InputMethodConf[] = conf.get(
+    "generic-input-methods.input-methods",
+    []
+  );
   inputMethods.forEach(imConf => {
     const im = new InputMethod(context, imConf);
     const dict = im.completionItems();
