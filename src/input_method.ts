@@ -1,4 +1,16 @@
-import { CompletionItem, ExtensionContext, SnippetString } from "vscode";
+import {
+  CompletionItem,
+  ExtensionContext,
+  SnippetString,
+  CompletionItemProvider,
+  TextDocument,
+  Position,
+  CancellationToken,
+  CompletionContext,
+  CompletionTriggerKind,
+  Range,
+  TextEdit
+} from "vscode";
 import { readFileSync } from "fs";
 import {
   RenderMode,
@@ -14,13 +26,14 @@ const ASCII_CHARS: string[] = Array(CHAR_TILDE - CHAR_SPACE + 1)
   .fill(0)
   .map((_, offset) => String.fromCharCode(offset + CHAR_SPACE));
 
-export default class InputMethod {
+export default class InputMethod implements CompletionItemProvider {
   public name: string;
   public languages: string[];
   public triggers: string[];
   public renderMode: RenderMode;
   public commandName?: string;
 
+  private completionItems: CompletionItem[];
   private dictionary: InputMethodItem[];
 
   constructor(context: ExtensionContext, conf: InputMethodConf) {
@@ -63,25 +76,43 @@ export default class InputMethod {
           this.dictionary.push(new SimpleInputMethodItem(i));
         });
     }
-  }
 
-  /**
-   * getCompletionItems
-   */
-  public completionItems(): CompletionItem[] {
     const commiters = ASCII_CHARS.filter(
       c => !this.dictionary.some(i => i.label.indexOf(c) !== -1)
     );
-    return this.dictionary.map(i => {
-      let ci: CompletionItem = {
-        label: i.label,
-        insertText: i.toSnippet(),
-        filterText: i.label,
-        documentation: i.description,
-        commitCharacters: commiters
-      };
-      return ci;
-    });
+    this.completionItems = this.dictionary.map(i => ({
+      label: i.label,
+      insertText: i.toSnippet(),
+      filterText: i.label,
+      documentation: i.description,
+      commitCharacters: commiters
+    }));
+  }
+
+  public provideCompletionItems(
+    document: TextDocument,
+    position: Position,
+    token: CancellationToken,
+    context: CompletionContext
+  ): CompletionItem[] {
+    if (
+      context.triggerKind === CompletionTriggerKind.TriggerCharacter &&
+      this.triggers.some(c => c === context.triggerCharacter)
+    ) {
+      return this.completionItems.map(item => {
+        let start = position;
+        if (position.character > 0) {
+          start = new Position(position.line, position.character - 1);
+        }
+        let range = new Range(start, position);
+        if (document.getText(range) === context.triggerCharacter) {
+          item.additionalTextEdits = [TextEdit.delete(range)];
+        }
+        return item;
+      });
+    } else {
+      return [];
+    }
   }
 
   /**

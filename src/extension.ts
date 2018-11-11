@@ -2,16 +2,9 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import {
-  CancellationToken,
   commands,
-  CompletionContext,
-  CompletionTriggerKind,
   ExtensionContext,
   languages,
-  Position,
-  Range,
-  TextDocument,
-  TextEdit,
   window,
   workspace,
   WorkspaceConfiguration,
@@ -34,39 +27,12 @@ export function activate(context: ExtensionContext): GenericInputMethodAPI {
 
   const registerInputMethod = (imConf: InputMethodConf) => {
     const im = new InputMethod(context, imConf);
-    const dict = im.completionItems();
     registered.set(im.name, []);
     const desps: Disposable[] = registered.get(im.name) || [];
     im.languages.forEach(lang => {
       let compProvider = languages.registerCompletionItemProvider(
         lang,
-        {
-          provideCompletionItems(
-            document: TextDocument,
-            position: Position,
-            token: CancellationToken,
-            context: CompletionContext
-          ) {
-            if (
-              context.triggerKind === CompletionTriggerKind.TriggerCharacter &&
-              im.triggers.some(c => c === context.triggerCharacter)
-            ) {
-              return dict.map(item => {
-                let start = position;
-                if (position.character > 0) {
-                  start = new Position(position.line, position.character - 1);
-                }
-                let range = new Range(start, position);
-                if (document.getText(range) === context.triggerCharacter) {
-                  item.additionalTextEdits = [TextEdit.delete(range)];
-                }
-                return item;
-              });
-            } else {
-              return [];
-            }
-          }
-        },
+        im,
         ...im.triggers
       );
       desps.push(compProvider);
