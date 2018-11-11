@@ -119,6 +119,7 @@
     "body": "diamond",
     "description": "⋄"
   },
+  { "label": "||-", "body": "Vdash", "description": "⊩" },
   {
     "label": "<|",
     "body": "triangleleft",

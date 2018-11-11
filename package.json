@@ -106,16 +106,7 @@
                   "\\"
                 ],
                 "dictionary": [
-                  {
-                    "label": "II",
-                    "body": "𝕀",
-                    "description": "𝕀"
-                  },
-                  {
-                    "label": "|-",
-                    "body": "⊢",
-                    "description": "⊢"
-                  }
+                  "defaults/math.json"
                 ]
               }
             ],

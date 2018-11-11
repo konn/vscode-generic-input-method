@@ -1,0 +1,1066 @@
+[
+  {
+    "label": "integral",
+    "description": "∫",
+    "body": "∫"
+  },
+  {
+    "label": "ointegral",
+    "description": "∮",
+    "body": "∮"
+  },
+  {
+    "label": "sqrt",
+    "description": "√",
+    "body": "√"
+  },
+  {
+    "label": "root",
+    "description": "√",
+    "body": "√"
+  },
+  {
+    "label": "A",
+    "description": "∀",
+    "body": "∀"
+  },
+  {
+    "label": "E",
+    "description": "∃",
+    "body": "∃"
+  },
+  {
+    "label": "E/",
+    "description": "∄",
+    "body": "∄"
+  },
+  {
+    "label": "!",
+    "description": "¬",
+    "body": "¬"
+  },
+  {
+    "label": "-+",
+    "description": "∓",
+    "body": "∓"
+  },
+  {
+    "label": "f",
+    "description": "÷",
+    "body": "÷"
+  },
+  {
+    "label": "*",
+    "description": "*",
+    "body": "*"
+  },
+  {
+    "label": "o",
+    "description": "o",
+    "body": "o"
+  },
+  {
+    "label": "o*",
+    "description": "∙",
+    "body": "∙"
+  },
+  {
+    "label": ".",
+    "description": "⋅",
+    "body": "⋅"
+  },
+  {
+    "label": "cap",
+    "description": "∩",
+    "body": "∩"
+  },
+  {
+    "label": "cup",
+    "description": "∪",
+    "body": "∪"
+  },
+  {
+    "label": "u+",
+    "description": "⊎",
+    "body": "⊎"
+  },
+  {
+    "label": "|~|",
+    "description": "⊓",
+    "body": "⊓"
+  },
+  {
+    "label": "|_|",
+    "description": "⊔",
+    "body": "⊔"
+  },
+  {
+    "label": "v",
+    "description": "v",
+    "body": "v"
+  },
+  {
+    "label": "\\\\",
+    "description": "⧵",
+    "body": "⧵"
+  },
+  {
+    "label": ")(",
+    "description": " ≀"
+  },
+  { "label": "||-", "body": "Vdash", "description": "⊩" },
+  {
+    "label": "<|",
+    "description": "◁",
+    "body": "◁"
+  },
+  {
+    "label": "|>",
+    "description": "▷",
+    "body": "▷"
+  },
+  {
+    "label": "<||",
+    "description": "⊲",
+    "body": "⊲"
+  },
+  {
+    "label": "||>",
+    "description": "⊳",
+    "body": "⊳"
+  },
+  {
+    "label": "<|-",
+    "description": "⊴",
+    "body": "⊴"
+  },
+  {
+    "label": "|>-",
+    "description": "⊵",
+    "body": "⊵"
+  },
+  {
+    "label": "o+",
+    "description": "⊕",
+    "body": "⊕"
+  },
+  {
+    "label": "o-",
+    "description": "⊖",
+    "body": "⊖"
+  },
+  {
+    "label": "ox",
+    "description": "⊗",
+    "body": "⊗"
+  },
+  {
+    "label": "o/",
+    "description": "⊘",
+    "body": "⊘"
+  },
+  {
+    "label": "o.",
+    "description": "⊙",
+    "body": "⊙"
+  },
+  {
+    "label": "O",
+    "description": "○",
+    "body": "○"
+  },
+  {
+    "label": "t",
+    "description": "†",
+    "body": "†"
+  },
+  {
+    "label": "tt",
+    "description": "‡",
+    "body": "‡"
+  },
+  {
+    "label": "coprod",
+    "description": "⨿",
+    "body": "⨿"
+  },
+  {
+    "label": "-=",
+    "description": "≡",
+    "body": "≡"
+  },
+  {
+    "label": "=-",
+    "description": "≡",
+    "body": "≡"
+  },
+  {
+    "label": "---",
+    "description": "≡",
+    "body": "≡"
+  },
+  {
+    "label": "(",
+    "description": "⊂",
+    "body": "⊂"
+  },
+  {
+    "label": "(-",
+    "description": "⊆",
+    "body": "⊆"
+  },
+  {
+    "label": ")",
+    "description": "⊃",
+    "body": "⊃"
+  },
+  {
+    "label": ")-",
+    "description": "⊇",
+    "body": "⊇"
+  },
+  {
+    "label": "[",
+    "description": "⊏",
+    "body": "⊏"
+  },
+  {
+    "label": "[-",
+    "description": "⊑",
+    "body": "⊑"
+  },
+  {
+    "label": "]",
+    "description": "⊐",
+    "body": "⊐"
+  },
+  {
+    "label": "]-",
+    "description": "⊒",
+    "body": "⊒"
+  },
+  {
+    "label": "{",
+    "description": "∈",
+    "body": "∈"
+  },
+  {
+    "label": "}",
+    "description": "∋",
+    "body": "∋"
+  },
+  {
+    "label": "II",
+    "body": "𝕀",
+    "description": "𝕀"
+  },
+  {
+    "label": "|-",
+    "description": "⊢",
+    "body": "⊢"
+  },
+  {
+    "label": "-|",
+    "description": "⊣",
+    "body": "⊣"
+  },
+  {
+    "label": "~",
+    "description": "~",
+    "body": "~"
+  },
+  {
+    "label": "~-",
+    "description": "≃",
+    "body": "≃"
+  },
+  {
+    "label": "asymp",
+    "description": "≍",
+    "body": "≍"
+  },
+  {
+    "label": "~~",
+    "description": "≈",
+    "body": "≈"
+  },
+  {
+    "label": "~=",
+    "description": "≅",
+    "body": "≅"
+  },
+  {
+    "label": ".=",
+    "description": "≐",
+    "body": "≐"
+  },
+  {
+    "label": "o<",
+    "description": "∝",
+    "body": "∝"
+  },
+  {
+    "label": "|=",
+    "description": "⊧",
+    "body": "⊧"
+  },
+  {
+    "label": "_|_",
+    "description": "⟂",
+    "body": "⟂"
+  },
+  {
+    "label": "|",
+    "description": "|",
+    "body": "|"
+  },
+  {
+    "label": "||",
+    "description": "∥",
+    "body": "∥"
+  },
+  {
+    "label": "bowtie",
+    "description": "⋈",
+    "body": "⋈"
+  },
+  {
+    "label": "|><|",
+    "description": "⋈",
+    "body": "⋈"
+  },
+  {
+    "label": "\\_/",
+    "description": "⌣",
+    "body": "⌣"
+  },
+  {
+    "label": "/~\\",
+    "description": "⌢",
+    "body": "⌢"
+  },
+  {
+    "label": "<<",
+    "description": "⋘",
+    "body": "⋘"
+  },
+  {
+    "label": ">>>",
+    "description": "⋙",
+    "body": "⋙"
+  },
+  {
+    "label": "<=",
+    "description": "⇐",
+    "body": "⇐"
+  },
+  {
+    "label": "<==",
+    "description": "⟸",
+    "body": "⟸"
+  },
+  {
+    "label": "=>",
+    "description": "⇒",
+    "body": "⇒"
+  },
+  {
+    "label": "==>",
+    "description": "⟹",
+    "body": "⟹"
+  },
+  {
+    "label": "<=>",
+    "description": "⇔",
+    "body": "⇔"
+  },
+  {
+    "label": "<==>",
+    "description": "⟺",
+    "body": "⟺"
+  },
+  {
+    "label": "^||",
+    "description": "⇑",
+    "body": "⇑"
+  },
+  {
+    "label": "v||",
+    "description": "⇓",
+    "body": "⇓"
+  },
+  {
+    "label": "ne",
+    "description": "↗",
+    "body": "↗"
+  },
+  {
+    "label": "nw",
+    "description": "↖",
+    "body": "↖"
+  },
+  {
+    "label": "se",
+    "description": "↘",
+    "body": "↘"
+  },
+  {
+    "label": "sw",
+    "description": "↙",
+    "body": "↙"
+  },
+  {
+    "label": "/-",
+    "description": "↼",
+    "body": "↼"
+  },
+  {
+    "label": "\\-",
+    "description": "↽",
+    "body": "↽"
+  },
+  {
+    "label": "-/",
+    "description": "⇁",
+    "body": "⇁"
+  },
+  {
+    "label": "-\\",
+    "description": "⇀",
+    "body": "⇀"
+  },
+  {
+    "label": "CUP",
+    "description": "⋃",
+    "body": "⋃"
+  },
+  {
+    "label": "union",
+    "description": "⋃",
+    "body": "⋃"
+  },
+  {
+    "label": "CAP",
+    "description": "⋂",
+    "body": "⋂"
+  },
+  {
+    "label": "isc",
+    "description": "⋂",
+    "body": "⋂"
+  },
+  {
+    "label": "O+",
+    "description": "⨁",
+    "body": "⨁"
+  },
+  {
+    "label": "Ox",
+    "description": "⨂",
+    "body": "⨂"
+  },
+  {
+    "label": "Z",
+    "description": "ℵ",
+    "body": "ℵ"
+  },
+  {
+    "label": "|\\|",
+    "description": "ℵ",
+    "body": "ℵ"
+  },
+  {
+    "label": "h-",
+    "description": "ℏ",
+    "body": "ℏ"
+  },
+  {
+    "label": "l",
+    "description": "ℓ",
+    "body": "ℓ"
+  },
+  {
+    "label": "wp",
+    "description": "℘",
+    "body": "℘"
+  },
+  {
+    "label": "R",
+    "description": "ℜ",
+    "body": "ℜ"
+  },
+  {
+    "label": "Im",
+    "description": "ℑ",
+    "body": "ℑ"
+  },
+  {
+    "label": "mho",
+    "description": "℧",
+    "body": "℧"
+  },
+  {
+    "label": "'",
+    "description": "′",
+    "body": "′"
+  },
+  {
+    "label": "0",
+    "description": "∅",
+    "body": "∅"
+  },
+  {
+    "label": "nabla",
+    "description": "∇",
+    "body": "∇"
+  },
+  {
+    "label": "\\/",
+    "description": "√",
+    "body": "√"
+  },
+  {
+    "label": "surd",
+    "description": "√",
+    "body": "√"
+  },
+  {
+    "label": "top",
+    "description": "⊤",
+    "body": "⊤"
+  },
+  {
+    "label": "bot",
+    "description": "⊥",
+    "body": "⊥"
+  },
+  {
+    "label": "b",
+    "description": "♭",
+    "body": "♭"
+  },
+  {
+    "label": "LT",
+    "description": "♮",
+    "body": "♮"
+  },
+  {
+    "label": "6",
+    "description": "∂",
+    "body": "∂"
+  },
+  {
+    "label": "partial",
+    "description": "∂",
+    "body": "∂"
+  },
+  {
+    "label": "round",
+    "description": "∂",
+    "body": "∂"
+  },
+  {
+    "label": "[]",
+    "description": "□",
+    "body": "□"
+  },
+  {
+    "label": "no",
+    "description": "(",
+    "body": "("
+  },
+  {
+    "label": "Diamond",
+    "description": "◇",
+    "body": "◇"
+  },
+  {
+    "label": "3",
+    "description": "△",
+    "body": "△"
+  },
+  {
+    "label": "C",
+    "description": "♣",
+    "body": "♣"
+  },
+  {
+    "label": "D",
+    "description": "♢",
+    "body": "♢"
+  },
+  {
+    "label": "H",
+    "description": "♡",
+    "body": "♡"
+  },
+  {
+    "label": "S",
+    "description": "♠",
+    "body": "♠"
+  },
+  {
+    "label": "||",
+    "description": "‖",
+    "body": "‖"
+  },
+  {
+    "label": "sum",
+    "description": "∑",
+    "body": "∑"
+  },
+  {
+    "label": "sigma",
+    "description": "∑",
+    "body": "∑"
+  },
+  {
+    "label": "oo",
+    "description": "∞",
+    "body": "∞"
+  },
+  {
+    "label": "\\",
+    "description": "＼",
+    "body": "＼"
+  },
+  {
+    "label": "...",
+    "description": "…",
+    "body": "…"
+  },
+  {
+    "label": "+-",
+    "description": "±",
+    "body": "±"
+  },
+  {
+    "label": "x",
+    "description": "×",
+    "body": "×"
+  },
+  {
+    "label": "/",
+    "description": "÷",
+    "body": "÷"
+  },
+  {
+    "label": "#",
+    "description": "★",
+    "body": "★"
+  },
+  {
+    "label": "/\\-",
+    "description": "△",
+    "body": "△"
+  },
+  {
+    "label": "-\\/",
+    "description": "▽",
+    "body": "▽"
+  },
+  {
+    "label": "l",
+    "body": "𝓁"
+  },
+  {
+    "label": "ell",
+    "body": "𝓁"
+  },
+
+  {
+    "label": "<",
+    "description": "<",
+    "body": "<"
+  },
+  {
+    "label": "=<",
+    "description": "≦",
+    "body": "≦"
+  },
+  {
+    "label": ">",
+    "description": ">",
+    "body": ">"
+  },
+  {
+    "label": ">=",
+    "description": "≧",
+    "body": "≧"
+  },
+  {
+    "label": "=:",
+    "description": "≒",
+    "body": "≒"
+  },
+  {
+    "label": "-<",
+    "description": "く",
+    "body": "く"
+  },
+  {
+    "label": "-<=",
+    "description": "く",
+    "body": "く"
+  },
+  {
+    "label": "<<",
+    "description": "《",
+    "body": "《"
+  },
+  {
+    "label": ">>",
+    "description": "》",
+    "body": "》"
+  },
+  {
+    "label": "<-",
+    "description": "←",
+    "body": "←"
+  },
+  {
+    "label": "<--",
+    "description": "⟵",
+    "body": "⟵"
+  },
+  {
+    "label": "->",
+    "description": "→",
+    "body": "→"
+  },
+  {
+    "label": "-->",
+    "description": "⟶",
+    "body": "⟶"
+  },
+  {
+    "label": "<->",
+    "description": "↔",
+    "body": "↔"
+  },
+  {
+    "label": "<-->",
+    "description": "⟷",
+    "body": "⟷"
+  },
+  {
+    "label": "^|",
+    "description": "↑",
+    "body": "↑"
+  },
+  {
+    "label": "v|",
+    "description": "↓",
+    "body": "↓"
+  },
+  {
+    "label": "|->",
+    "description": "↦",
+    "body": "↦"
+  },
+  {
+    "label": "<-)",
+    "description": "↩",
+    "body": "↩"
+  },
+  {
+    "label": "(->",
+    "description": "↪",
+    "body": "↪"
+  },
+  {
+    "label": "~>",
+    "description": "⟶",
+    "body": "⟶"
+  },
+  {
+    "label": "VEC",
+    "description": "⟶",
+    "body": "⟶"
+  },
+  {
+    "label": "prod",
+    "description": "∏",
+    "body": "∏"
+  },
+  {
+    "label": "angle",
+    "description": "∠",
+    "body": "∠"
+  },
+  {
+    "label": "/_",
+    "description": "∠",
+    "body": "∠"
+  },
+  {
+    "label": ".'.",
+    "description": "∴",
+    "body": "∴"
+  },
+  {
+    "label": "'.'",
+    "description": "∵",
+    "body": "∵"
+  },
+  {
+    "label": "_0",
+    "body": "₀"
+  },
+  {
+    "label": "_1",
+    "body": "₁"
+  },
+  {
+    "label": "_2",
+    "body": "₂"
+  },
+  {
+    "label": "_3",
+    "body": "₃"
+  },
+  {
+    "label": "_4",
+    "body": "₄"
+  },
+  {
+    "label": "_5",
+    "body": "₅"
+  },
+  {
+    "label": "_6",
+    "body": "₆"
+  },
+  {
+    "label": "_7",
+    "body": "₇"
+  },
+  {
+    "label": "_8",
+    "body": "₈"
+  },
+  {
+    "label": "_9",
+    "body": "₉"
+  },
+  {
+    "label": "^0",
+    "body": "⁰"
+  },
+  {
+    "label": "^1",
+    "body": "¹"
+  },
+  {
+    "label": "^2",
+    "body": "²"
+  },
+  {
+    "label": "^3",
+    "body": "³"
+  },
+  {
+    "label": "^4",
+    "body": "⁴"
+  },
+  {
+    "label": "^5",
+    "body": "⁵"
+  },
+  {
+    "label": "^6",
+    "body": "⁶"
+  },
+  {
+    "label": "^7",
+    "body": "⁷"
+  },
+  {
+    "label": "^8",
+    "body": "⁸"
+  },
+  {
+    "label": "^9",
+    "body": "⁹"
+  },
+  {
+    "label": "Ga",
+    "body": "α"
+  },
+  {
+    "label": "Gb",
+    "body": "β"
+  },
+  {
+    "label": "Gg",
+    "body": "γ"
+  },
+  {
+    "label": "GG",
+    "body": "Γ"
+  },
+  {
+    "label": "Gd",
+    "body": "δ"
+  },
+  {
+    "label": "GD",
+    "body": "Δ"
+  },
+  {
+    "label": "Ge",
+    "body": "ϵ"
+  },
+  {
+    "label": "Ge-",
+    "body": "ε"
+  },
+  {
+    "label": "Gz",
+    "body": "ζ"
+  },
+  {
+    "label": "Get",
+    "body": "η"
+  },
+  {
+    "label": "Gth",
+    "body": "θ"
+  },
+  {
+    "label": "GTh",
+    "body": "Θ"
+  },
+  {
+    "label": "Gth-",
+    "body": "ϑ"
+  },
+  {
+    "label": "Gi",
+    "body": "ι"
+  },
+  {
+    "label": "Gk",
+    "body": "κ"
+  },
+  {
+    "label": "Gk-",
+    "body": "ϰ"
+  },
+  {
+    "label": "Gl",
+    "body": "λ"
+  },
+  {
+    "label": "GL",
+    "body": "Λ"
+  },
+  {
+    "label": "Gm",
+    "body": "μ"
+  },
+  {
+    "label": "Gn",
+    "body": "ν"
+  },
+  {
+    "label": "Gx",
+    "body": "ξ"
+  },
+  {
+    "label": "GX",
+    "body": "Ξ"
+  },
+  {
+    "label": "Gp",
+    "body": "π"
+  },
+  {
+    "label": "GP",
+    "body": "Π"
+  },
+  {
+    "label": "Gp-",
+    "body": "ϖ"
+  },
+  {
+    "label": "Gr",
+    "body": "ρ"
+  },
+  {
+    "label": "Gr-",
+    "body": "ϱ"
+  },
+  {
+    "label": "Gs",
+    "body": "σ"
+  },
+  {
+    "label": "GS",
+    "body": "Σ"
+  },
+  {
+    "label": "Gs-",
+    "body": "ς"
+  },
+  {
+    "label": "Gt",
+    "body": "τ"
+  },
+  {
+    "label": "Gu",
+    "body": "υ"
+  },
+  {
+    "label": "Gy",
+    "body": "υ"
+  },
+  {
+    "label": "GU",
+    "body": "Υ"
+  },
+  {
+    "label": "GY",
+    "body": "Υ"
+  },
+  {
+    "label": "Gph",
+    "body": "φ"
+  },
+  {
+    "label": "GPh",
+    "body": "Φ"
+  },
+  {
+    "label": "Gph-",
+    "body": "φ"
+  },
+  {
+    "label": "Gc",
+    "body": "χ"
+  },
+  {
+    "label": "Gps",
+    "body": "ψ"
+  },
+  {
+    "label": "GPs",
+    "body": "Ψ"
+  },
+  {
+    "label": "Go",
+    "body": "ω"
+  },
+  {
+    "label": "Gw",
+    "body": "ω"
+  },
+  {
+    "label": "GO",
+    "body": "Ω"
+  },
+  {
+    "label": "GW",
+    "body": "Ω"
+  }
+]
