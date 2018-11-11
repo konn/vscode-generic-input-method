@@ -142,31 +142,47 @@
                   }
                 },
                 "dictionary": {
-                  "type": "array",
-                  "description": "Input items",
-                  "items": {
-                    "type": "object",
-                    "title": "Completion Item",
-                    "properties": {
-                      "label": {
-                        "type": "string",
-                        "description": "Keystroke"
-                      },
-                      "body": {
-                        "type": "string",
-                        "description": "Completions to input"
-                      },
-                      "description": {
-                        "type": "string",
-                        "description": "Preview string",
-                        "default": ""
-                      },
-                      "required": [
-                        "label",
-                        "body"
-                      ]
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "description": "Path to configuration json file"
+                    },
+                    {
+                      "type": "array",
+                      "description": "Input items",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "description": "External file to include as a dictionary"
+                          },
+                          {
+                            "type": "object",
+                            "title": "Completion Item",
+                            "properties": {
+                              "label": {
+                                "type": "string",
+                                "description": "Keystroke"
+                              },
+                              "body": {
+                                "type": "string",
+                                "description": "Completions to input"
+                              },
+                              "description": {
+                                "type": "string",
+                                "description": "Preview string",
+                                "default": ""
+                              },
+                              "required": [
+                                "label",
+                                "body"
+                              ]
+                            }
+                          }
+                        ]
+                      }
                     }
-                  }
+                  ]
                 }
               }
             }
