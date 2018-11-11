@@ -14,12 +14,13 @@ import InputMethod, {
   InputMethodConf,
   RenderableQuickPickItem
 } from "./input_method";
+import GenericInputMethodAPI from "./api";
 
 const registered: Map<string, Disposable[]> = new Map();
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
-export function activate(context: ExtensionContext) {
+export function activate(context: ExtensionContext): GenericInputMethodAPI {
   let conf: WorkspaceConfiguration = workspace.getConfiguration();
 
   let inputMethods: InputMethodConf[] = conf.get(
