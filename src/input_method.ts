@@ -1,35 +1,18 @@
-import {
-  CompletionItem,
-  ExtensionContext,
-  QuickPickItem,
-  SnippetString
-} from "vscode";
+import { CompletionItem, ExtensionContext, SnippetString } from "vscode";
 import { readFileSync } from "fs";
+import {
+  RenderMode,
+  InputMethodConf,
+  InputMethodItemConfig,
+  RenderableQuickPickItem,
+  ToSnippet
+} from "./generic-input-method";
 
 const CHAR_SPACE: number = 32;
 const CHAR_TILDE: number = 126;
 const ASCII_CHARS: string[] = Array(CHAR_TILDE - CHAR_SPACE + 1)
   .fill(0)
   .map((_, offset) => String.fromCharCode(offset + CHAR_SPACE));
-
-export interface ToSnippet {
-  toSnippet(selection?: string): SnippetString;
-}
-
-export enum RenderMode {
-  String = "string",
-  SnippetString = "snippet",
-  LaTeXCommand = "latex"
-}
-
-export interface InputMethodConf {
-  name: string;
-  languages: string[];
-  triggers: string[];
-  dictionary: (InputMethodItemConfig | string)[] | string;
-  renderMode?: RenderMode;
-  commandName?: string;
-}
 
 export default class InputMethod {
   public name: string;
@@ -114,9 +97,6 @@ export default class InputMethod {
     });
   }
 }
-
-export interface RenderableQuickPickItem extends QuickPickItem, ToSnippet {}
-
 export class SimpleInputMethodItem implements ToSnippet {
   public label: string;
   public body: string;
@@ -139,13 +119,6 @@ export interface InputMethodItem extends ToSnippet {
   label: string;
   body: string;
   description?: string;
-}
-
-export interface InputMethodItemConfig {
-  label: string;
-  body: string;
-  description?: string;
-  [index: string]: any;
 }
 
 enum CommandType {

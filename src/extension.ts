@@ -14,22 +14,29 @@ import {
   TextEdit,
   window,
   workspace,
-  WorkspaceConfiguration
+  WorkspaceConfiguration,
+  Disposable
 } from "vscode";
-import InputMethod, { InputMethodConf } from "./input_method";
+import InputMethod from "./input_method";
+import GenericInputMethodAPI, { InputMethodConf } from "./generic-input-method";
+
+const registered: Map<string, Disposable[]> = new Map();
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
-export function activate(context: ExtensionContext) {
+export function activate(context: ExtensionContext): GenericInputMethodAPI {
   let conf: WorkspaceConfiguration = workspace.getConfiguration();
 
   let inputMethods: InputMethodConf[] = conf.get(
     "generic-input-methods.input-methods",
     []
   );
-  inputMethods.forEach(imConf => {
+
+  const registerInputMethod = (imConf: InputMethodConf) => {
     const im = new InputMethod(context, imConf);
     const dict = im.completionItems();
+    registered.set(im.name, []);
+    const desps: Disposable[] = registered.get(im.name) || [];
     im.languages.forEach(lang => {
       let compProvider = languages.registerCompletionItemProvider(
         lang,
@@ -62,6 +69,7 @@ export function activate(context: ExtensionContext) {
         },
         ...im.triggers
       );
+      desps.push(compProvider);
       context.subscriptions.push(compProvider);
     });
     let cmd_name = im.commandName;
@@ -84,9 +92,29 @@ export function activate(context: ExtensionContext) {
           }
         }
       );
+      desps.push(pickCommand);
       context.subscriptions.push(pickCommand);
     }
-  });
+  };
+
+  inputMethods.forEach(registerInputMethod);
+
+  const api: GenericInputMethodAPI = {
+    registerInputMethod: registerInputMethod,
+    unregisterInputMethodByName: (name: string) =>
+      new Promise((resolve, _) => {
+        const targ = registered.get(name);
+        if (targ) {
+          registered.delete(name);
+          targ.forEach(d => d.dispose());
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      })
+  };
+
+  return api;
 }
 
 // this method is called when your extension is deactivated
