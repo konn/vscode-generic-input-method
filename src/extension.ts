@@ -10,14 +10,16 @@ import {
   WorkspaceConfiguration,
   Disposable
 } from "vscode";
-import InputMethod from "./input_method";
-import GenericInputMethodAPI, { InputMethodConf } from "./generic-input-method";
+import InputMethod, {
+  InputMethodConf,
+  RenderableQuickPickItem
+} from "./input_method";
 
 const registered: Map<string, Disposable[]> = new Map();
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
-export function activate(context: ExtensionContext): GenericInputMethodAPI {
+export function activate(context: ExtensionContext) {
   let conf: WorkspaceConfiguration = workspace.getConfiguration();
 
   let inputMethods: InputMethodConf[] = conf.get(
@@ -40,7 +42,7 @@ export function activate(context: ExtensionContext): GenericInputMethodAPI {
     });
     let cmd_name = im.commandName;
     if (cmd_name) {
-      const picks = im.quickPickItems();
+      const picks: RenderableQuickPickItem[] = im.quickPickItems();
       let pickCommand = commands.registerTextEditorCommand(
         `extension.complete.${cmd_name}`,
         (editor, _edit) => {
@@ -65,9 +67,9 @@ export function activate(context: ExtensionContext): GenericInputMethodAPI {
 
   inputMethods.forEach(registerInputMethod);
 
-  const api: GenericInputMethodAPI = {
+  const api = {
     registerInputMethod: registerInputMethod,
-    unregisterInputMethodByName: (name: string) =>
+    unregisterInputMethodByName: (name: string): Thenable<boolean> =>
       new Promise((resolve, _) => {
         const targ = registered.get(name);
         if (targ) {

@@ -2,8 +2,15 @@
   "name": "generic-input-method",
   "displayName": "Generic Input Method for Unicode and LaTeX",
   "description": "A generic input method which is suitable for YaTeX-like image completion for LaTeX or Unicode Symbol input for theorem provers such as Lean or Agda.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "publisher": "mr-konn",
+  "keywords": [
+    "LaTeX",
+    "Unicode",
+    "Math",
+    "Theorem Prover",
+    "Input Method"
+  ],
   "engines": {
     "vscode": "^1.28.0"
   },
@@ -31,26 +38,13 @@
       {
         "command": "extension.complete.latex.font",
         "title": "Complete Math Font"
-      }
-    ],
-    "keybindings": [
-      {
-        "command": "extension.image-complete",
-        "key": "ctrl+c ;",
-        "when": "editorTextFocus && editorLangId == latex"
       },
       {
-        "command": "extension.greek-complete",
-        "key": "ctrl+c [Quote]",
-        "when": "editorTextFocus && editorLangId == latex"
-      },
-      {
-        "command": "extension.font-complete",
-        "key": "ctrl+c [BracketLeft]",
-        "mac": "cmd+[BracketLeft]",
-        "when": "editorTextFocus && editorLangId == latex"
+        "title": "Invoke Input Method",
+        "command": "extension.util.invoke-input-method"
       }
     ],
+    "keybindings": [],
     "configuration": [
       {
         "type": "object",

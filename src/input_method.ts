@@ -9,23 +9,16 @@ import {
   CompletionContext,
   CompletionTriggerKind,
   Range,
-  TextEdit
+  TextEdit,
+  QuickPickItem
 } from "vscode";
 import { readFileSync } from "fs";
-import {
-  RenderMode,
-  InputMethodConf,
-  InputMethodItemConfig,
-  RenderableQuickPickItem,
-  ToSnippet
-} from "./generic-input-method";
 
 const CHAR_SPACE: number = 32;
 const CHAR_TILDE: number = 126;
 const ASCII_CHARS: string[] = Array(CHAR_TILDE - CHAR_SPACE + 1)
   .fill(0)
   .map((_, offset) => String.fromCharCode(offset + CHAR_SPACE));
-
 export default class InputMethod implements CompletionItemProvider {
   public name: string;
   public languages: string[];
@@ -256,4 +249,32 @@ export class LaTeXInputMethodItem implements InputMethodItem {
     }
     return new SnippetString(rendered);
   }
+}
+
+export interface ToSnippet {
+  toSnippet(selection?: string): SnippetString;
+}
+
+export enum RenderMode {
+  String = "string",
+  SnippetString = "snippet",
+  LaTeXCommand = "latex"
+}
+
+export interface RenderableQuickPickItem extends QuickPickItem, ToSnippet {}
+
+export interface InputMethodConf {
+  name: string;
+  languages: string[];
+  triggers: string[];
+  dictionary: (InputMethodItemConfig | string)[] | string;
+  renderMode?: RenderMode;
+  commandName?: string;
+}
+
+export interface InputMethodItemConfig {
+  label: string;
+  body: string;
+  description?: string;
+  [index: string]: any;
 }

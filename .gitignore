@@ -1,4 +1,5 @@
 out
+types
 node_modules
 .vscode-test/
 *.vsix
