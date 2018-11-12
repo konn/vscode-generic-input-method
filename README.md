@@ -17,7 +17,7 @@ You can define and/or modify input methods in `generic-input-method.input-method
 This must be an array of input method.
 Each input method is defined as follows:
 
-```json
+```javascript
 {
   // Unique name for the input method
   "name": "Example Math Input",
