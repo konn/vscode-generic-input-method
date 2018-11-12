@@ -1,9 +1,13 @@
 # Change Log
 
-All notable changes to the "latex-shape-completion" extension will be documented in this file.
+## [0.0.6]
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+### Added
 
-## [Unreleased]
+- Implements `extension.input-methods.invoke` command.
+- Adds `invokeInputMethod` function to the API.
 
-- Initial release
+### Changed
+
+- Started to keep a Changelog.
+
