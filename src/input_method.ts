@@ -10,7 +10,9 @@ import {
   CompletionTriggerKind,
   Range,
   TextEdit,
-  QuickPickItem
+  QuickPickItem,
+  TextEditor,
+  window
 } from "vscode";
 import { readFileSync } from "fs";
 
@@ -119,6 +121,22 @@ export default class InputMethod implements CompletionItemProvider {
         toSnippet: (e?: string) => i.toSnippet(e)
       };
     });
+  }
+
+  public invokeQuickPick(editor: TextEditor, forced: boolean = false) {
+    if (forced || this.languages.some(i => i === editor.document.languageId)) {
+      const picks: RenderableQuickPickItem[] = this.quickPickItems();
+      let selection: string | undefined;
+      if (!editor.selection.isEmpty) {
+        selection = editor.document.getText(editor.selection);
+      }
+      window.showQuickPick(picks).then(item => {
+        if (!item) {
+          return;
+        }
+        editor.insertSnippet(item.toSnippet(selection));
+      });
+    }
   }
 }
 export class SimpleInputMethodItem implements ToSnippet {

@@ -8,15 +8,13 @@ import {
   window,
   workspace,
   WorkspaceConfiguration,
-  Disposable
+  Disposable,
+  TextEditor
 } from "vscode";
-import InputMethod, {
-  InputMethodConf,
-  RenderableQuickPickItem
-} from "./input_method";
+import InputMethod, { InputMethodConf } from "./input_method";
 import GenericInputMethodAPI from "./api";
 
-const registered: Map<string, Disposable[]> = new Map();
+const registered: Map<string, [InputMethod, Disposable[]]> = new Map();
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -30,8 +28,8 @@ export function activate(context: ExtensionContext): GenericInputMethodAPI {
 
   const registerInputMethod = (imConf: InputMethodConf) => {
     const im = new InputMethod(context, imConf);
-    registered.set(im.name, []);
-    const desps: Disposable[] = registered.get(im.name) || [];
+    registered.set(im.name, [im, []]);
+    const desps: Disposable[] = (registered.get(im.name) || [undefined, []])[1];
     im.languages.forEach(lang => {
       let compProvider = languages.registerCompletionItemProvider(
         lang,
@@ -43,23 +41,9 @@ export function activate(context: ExtensionContext): GenericInputMethodAPI {
     });
     let cmd_name = im.commandName;
     if (cmd_name) {
-      const picks: RenderableQuickPickItem[] = im.quickPickItems();
       let pickCommand = commands.registerTextEditorCommand(
         `extension.complete.${cmd_name}`,
-        (editor, _edit) => {
-          if (im.languages.some(i => i === editor.document.languageId)) {
-            let selection: string | undefined;
-            if (!editor.selection.isEmpty) {
-              selection = editor.document.getText(editor.selection);
-            }
-            window.showQuickPick(picks).then(item => {
-              if (!item) {
-                return;
-              }
-              editor.insertSnippet(item.toSnippet(selection));
-            });
-          }
-        }
+        (editor, _edit) => im.invokeQuickPick(editor)
       );
       desps.push(pickCommand);
       context.subscriptions.push(pickCommand);
@@ -68,19 +52,54 @@ export function activate(context: ExtensionContext): GenericInputMethodAPI {
 
   inputMethods.forEach(registerInputMethod);
 
-  const api = {
-    registerInputMethod: registerInputMethod,
+  const invokeInputMethod = async (
+    editor: TextEditor,
+    name?: string | InputMethodConf
+  ) => {
+    let im: InputMethod | undefined;
+    if (!name) {
+      const items: { label: string; im: InputMethod }[] = [];
+      registered.forEach(([i, _], label) => {
+        items.push({ label, im: i });
+      });
+      let item = await window.showQuickPick(items);
+      if (item && item.im) {
+        im = item.im;
+      }
+    } else if (typeof name === "string") {
+      const targ = registered.get(name);
+      if (targ) {
+        im = targ[0];
+      }
+    } else if (name) {
+      im = new InputMethod(context, name);
+    }
+
+    if (im) {
+      im.invokeQuickPick(editor, true);
+    }
+  };
+
+  let invoker = commands.registerTextEditorCommand(
+    "extension.input-methods.invoke",
+    (editor, _edit, ...args) => invokeInputMethod(editor, ...args)
+  );
+  context.subscriptions.push(invoker);
+
+  const api: GenericInputMethodAPI = {
     unregisterInputMethodByName: (name: string): Thenable<boolean> =>
       new Promise((resolve, _) => {
         const targ = registered.get(name);
         if (targ) {
           registered.delete(name);
-          targ.forEach(d => d.dispose());
+          targ[1].forEach(d => d.dispose());
           resolve(true);
         } else {
           resolve(false);
         }
-      })
+      }),
+    registerInputMethod,
+    invokeInputMethod
   };
 
   return api;

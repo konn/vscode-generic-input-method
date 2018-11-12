@@ -41,7 +41,7 @@
       },
       {
         "title": "Invoke Input Method",
-        "command": "extension.util.invoke-input-method"
+        "command": "extension.input-methods.invoke"
       }
     ],
     "keybindings": [],
