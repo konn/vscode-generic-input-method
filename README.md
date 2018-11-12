@@ -56,9 +56,34 @@ Currently, you can only refer to the default dictionaries shipped with the `gene
 ## External API
 
 This extension provides an API to un/register custom input methods.
-See [`redtt-diagnostics`][redtt-diag] for an example usage;
+
+### Registering a new Input Method dynamically
+
+```typescript
+import { extensions, ExtensionContext } from "vscode";
+
+function async activate(context: ExtensionContext) {
+  let ims = extensions.getExtension("mr-konn.generic-input-method");
+  if (gim) {
+    const api: any = await gim.activate();
+    const im: any = {
+      name: "My Great IM Dynamically Registered",
+      languages: ["redtt"],
+      triggers: ["\\"],
+      dictionary: ["defaults/math.json", { label: "to", body: "→" }]
+    };
+    api.registerInputMethod(im);
+  }
+}
+```
+
+See [`redtt-diagnostics`][redtt-diag] for an example usage.
 
 [redtt-diag]: https://github.com/konn/vscode-redtt-diagnostics
+
+### Invoking Input Method Forcedly
+
+You can use `api.invokeInputMethod(editor?, nameOrIM?)` to invoke an input method, regardless of the language of editor.
 
 ## TODOs
 
