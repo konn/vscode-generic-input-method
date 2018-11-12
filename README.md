@@ -11,6 +11,18 @@ It can be used as a [YaTeX][yatex]-like image completion for LaTeX or Unicode Ma
 - Unicode Math input for Markdown
 - Ability to configure your own custom input methods!
 
+## Demos
+
+### Image and Greek completion for LaTeX
+
+![GIF Anime](images/image-and-greek.gif)
+
+![GIF Anime](images/image-invoked.gif)
+
+### Unicode Math Input
+
+![GIF Anime](images/unicode-input.gif)
+
 ## Configuration
 
 You can define and/or modify input methods in `generic-input-method.input-methods`.
