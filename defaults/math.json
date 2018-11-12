@@ -108,7 +108,7 @@
     "label": ")(",
     "description": " ≀"
   },
-  { "label": "||-", "body": "Vdash", "description": "⊩" },
+  { "label": "||-", "body": "⊩", "description": "⊩" },
   {
     "label": "<|",
     "description": "◁",
