@@ -15,17 +15,20 @@ import {
   window
 } from "vscode";
 import { readFileSync } from "fs";
+import { InputMethodException } from "./exception";
 
 const CHAR_SPACE: number = 32;
 const CHAR_TILDE: number = 126;
 const ASCII_CHARS: string[] = Array(CHAR_TILDE - CHAR_SPACE + 1)
   .fill(0)
   .map((_, offset) => String.fromCharCode(offset + CHAR_SPACE));
+export const Expanders: Map<string, Expander> = new Map();
+
 export default class InputMethod implements CompletionItemProvider {
   public name: string;
   public languages: string[];
   public triggers: string[];
-  public renderMode: RenderMode;
+  public renderMode: Expander;
   public commandName?: string;
 
   private completionItems: CompletionItem[];
@@ -36,7 +39,38 @@ export default class InputMethod implements CompletionItemProvider {
     this.languages = conf.languages;
     this.triggers = conf.triggers;
     this.dictionary = [];
-    this.renderMode = conf.renderMode ? conf.renderMode : RenderMode.String;
+    const renderModeSeed = conf.renderMode
+      ? conf.renderMode
+      : RenderMode.Snippet;
+    if (typeof renderModeSeed === "string") {
+      switch (renderModeSeed) {
+        case RenderMode.LaTeXCommand:
+          this.renderMode = LaTeXExpander;
+          break;
+
+        case RenderMode.Snippet:
+          this.renderMode = SimpleExpander;
+          break;
+
+        case RenderMode.String:
+          this.renderMode = RawStringExpander;
+          break;
+
+        default:
+          let exp = Expanders.get(renderModeSeed);
+          if (exp) {
+            this.renderMode = exp;
+          } else {
+            throw new InputMethodException(
+              "Initialisation Error",
+              `No expander \`${renderModeSeed}' found`
+            );
+          }
+      }
+    } else {
+      this.renderMode = renderModeSeed;
+    }
+
     this.commandName = conf.commandName;
 
     function parseFile(path: string) {
@@ -57,20 +91,7 @@ export default class InputMethod implements CompletionItemProvider {
       });
     }
 
-    switch (this.renderMode) {
-      case RenderMode.LaTeXCommand:
-        dict.forEach(i => {
-          this.dictionary.push(
-            new LaTeXInputMethodItem(i as LaTeXInputMethodItemConfig)
-          );
-        });
-        break;
-
-      default:
-        dict.forEach(i => {
-          this.dictionary.push(new SimpleInputMethodItem(i));
-        });
-    }
+    this.dictionary = dict.map(this.renderMode);
 
     const commiters = ASCII_CHARS.filter(
       c => !this.dictionary.some(i => i.label.indexOf(c) !== -1)
@@ -113,19 +134,23 @@ export default class InputMethod implements CompletionItemProvider {
   /**
    * quickPickItems
    */
-  public quickPickItems(): RenderableQuickPickItem[] {
-    return this.dictionary.map(i => {
-      return {
-        description: i.description,
-        label: i.label,
-        toSnippet: (e?: string) => i.toSnippet(e)
-      };
-    });
+  public quickPickItems(): Thenable<RenderableQuickPickItem[]> {
+    return new Promise(resolve =>
+      resolve(
+        this.dictionary.map(i => {
+          return {
+            description: i.description,
+            label: i.label,
+            toSnippet: (e?: string) => i.toSnippet(e)
+          };
+        })
+      )
+    );
   }
 
   public invokeQuickPick(editor: TextEditor, forced: boolean = false) {
     if (forced || this.languages.some(i => i === editor.document.languageId)) {
-      const picks: RenderableQuickPickItem[] = this.quickPickItems();
+      const picks: Thenable<RenderableQuickPickItem[]> = this.quickPickItems();
       let selection: string | undefined;
       if (!editor.selection.isEmpty) {
         selection = editor.document.getText(editor.selection);
@@ -286,7 +311,7 @@ export interface InputMethodConf {
   languages: string[];
   triggers: string[];
   dictionary: (InputMethodItemConfig | string)[] | string;
-  renderMode?: RenderMode;
+  renderMode?: RenderMode | string | Expander;
   commandName?: string;
 }
 
@@ -296,3 +321,15 @@ export interface InputMethodItemConfig {
   description?: string;
   [index: string]: any;
 }
+
+export type Expander = (conf: InputMethodItemConfig) => InputMethodItem;
+
+export const SimpleExpander: Expander = i => new SimpleInputMethodItem(i);
+
+export const RawStringExpander: Expander = i => {
+  i.body = i.body.replace("$", "\\$").replace("}", "\\}");
+  return new SimpleInputMethodItem(i);
+};
+
+export const LaTeXExpander: Expander = i =>
+  new LaTeXInputMethodItem(i as LaTeXInputMethodItemConfig);
