@@ -79,7 +79,7 @@ export default class InputMethod implements CompletionItemProvider {
       label: i.label,
       insertText: i.toSnippet(),
       filterText: i.label,
-      documentation: i.description,
+      documentation: i.description || i.toSnippet().value,
       commitCharacters: commiters
     }));
   }
