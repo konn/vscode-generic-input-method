@@ -2,14 +2,17 @@
   "name": "generic-input-method",
   "displayName": "Generic Input Method for Unicode and LaTeX",
   "description": "A generic input method which is suitable for YaTeX-like image completion for LaTeX or Unicode Symbol input for theorem provers such as Lean or Agda.",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "publisher": "mr-konn",
   "keywords": [
     "LaTeX",
     "Unicode",
     "Math",
     "Theorem Prover",
-    "Input Method"
+    "Image Completion",
+    "Greek Completion",
+    "Input Method",
+    "Shape completion"
   ],
   "engines": {
     "vscode": "^1.28.0"
