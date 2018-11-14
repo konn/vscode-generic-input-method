@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.0.7]
+
+- Uses `body` field if the `description` misses.
+- Introduces generic snippet expander mechanism.
+- Exposes expander registration API: `registerExpander`.
+- Renames `SnippetString` renderer to `Snippet`.
+- Custom Exception for InputMethods.
+
 ## [0.0.6]
 
 ### Added
