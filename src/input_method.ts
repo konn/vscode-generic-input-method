@@ -274,8 +274,8 @@ export interface ToSnippet {
 }
 
 export enum RenderMode {
+  Snippet = "snippet",
   String = "string",
-  SnippetString = "snippet",
   LaTeXCommand = "latex"
 }
 
