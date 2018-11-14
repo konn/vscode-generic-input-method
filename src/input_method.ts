@@ -43,29 +43,22 @@ export default class InputMethod implements CompletionItemProvider {
       ? conf.renderMode
       : RenderMode.Snippet;
     if (typeof renderModeSeed === "string") {
-      switch (renderModeSeed) {
-        case RenderMode.LaTeXCommand:
-          this.renderMode = LaTeXExpander;
-          break;
-
-        case RenderMode.Snippet:
-          this.renderMode = SimpleExpander;
-          break;
-
-        case RenderMode.String:
-          this.renderMode = RawStringExpander;
-          break;
-
-        default:
-          let exp = Expanders.get(renderModeSeed);
-          if (exp) {
-            this.renderMode = exp;
-          } else {
-            throw new InputMethodException(
-              "Initialisation Error",
-              `No expander \`${renderModeSeed}' found`
-            );
-          }
+      if (renderModeSeed === RenderMode.LaTeXCommand) {
+        this.renderMode = LaTeXExpander;
+      } else if (renderModeSeed === RenderMode.Snippet) {
+        this.renderMode = SimpleExpander;
+      } else if (renderModeSeed === RenderMode.String) {
+        this.renderMode = RawStringExpander;
+      } else {
+        let exp = Expanders.get(renderModeSeed);
+        if (exp) {
+          this.renderMode = exp;
+        } else {
+          throw new InputMethodException(
+            "Initialisation Error",
+            `No expander \`${renderModeSeed}' found`
+          );
+        }
       }
     } else {
       this.renderMode = renderModeSeed;
@@ -188,7 +181,7 @@ export interface InputMethodItem extends ToSnippet {
   description?: string;
 }
 
-enum CommandType {
+export enum CommandType {
   Maketitle = "maketitle",
   Environment = "environment",
   Section = "section",
@@ -196,7 +189,7 @@ enum CommandType {
   Large = "large"
 }
 
-interface ArgSpec {
+export interface ArgSpec {
   kind: ArgKind;
   candidates?: string[];
 }
@@ -217,11 +210,10 @@ function render_argspec(
     } else {
       rendered = `\${${index}}`;
     }
-    switch (value.kind) {
-      case ArgKind.Fixed:
-        rendered = `{${rendered}}`;
-      case ArgKind.Optional:
-        rendered = `[${rendered}]`;
+    if (value.kind === ArgKind.Fixed) {
+      rendered = `{${rendered}}`;
+    } else if (value.kind === ArgKind.Optional) {
+      rendered = `[${rendered}]`;
     }
     return rendered;
   };
@@ -263,32 +255,34 @@ export class LaTeXInputMethodItem implements InputMethodItem {
 
     let args = (this.args || []).map(render_argspec(selection)).join("");
 
-    switch (this.type) {
-      case CommandType.Environment:
+    if (this.type === CommandType.Environment) {
+      if (selection) {
+        rendered = `\\begin{${this.body}}${args}
+  ${selection}
+\\end{${this.body}}`;
+      } else {
         rendered = `\\begin{${this.body}}${args}
   $1
 \\end{${this.body}}`;
-        break;
-      case CommandType.Large:
+      }
+    } else if (this.type === CommandType.Large) {
+      if (selection) {
+        rendered = `{\\${this.body} ${selection}}`;
+      } else {
         rendered = `{\\${this.body} $1}`;
-        break;
-      case CommandType.Section:
-        if (!this.args || this.args.length === 0) {
-          if (selection.length === 0) {
-            rendered = `\\${this.body}{$1}`;
-          } else {
-            rendered = `\\${this.body}{${selection}}`;
-          }
+      }
+    } else if (this.type === CommandType.Section) {
+      if (!this.args || this.args.length === 0) {
+        if (selection.length === 0) {
+          rendered = `\\${this.body}{$1}`;
         } else {
-          rendered = `\\${this.body}${args}`;
+          rendered = `\\${this.body}{${selection}}`;
         }
-        break;
-      case CommandType.Text:
-        rendered = this.body;
-        break;
-
-      default:
-        rendered = `\\${this.body}`;
+      } else {
+        rendered = `\\${this.body}${args}`;
+      }
+    } else if (this.type === CommandType.Text) {
+      rendered = this.body;
     }
     return new SnippetString(rendered);
   }
