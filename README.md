@@ -41,10 +41,11 @@ Each input method is defined as follows:
   "triggers": ["\\"],
 
   // How to render each items?
-  // Available: "string" or "latex".
+  // Available: "string", "snippet" or "latex".
   // `string` just prints the content of "body" property.
   // `latex` provides more sophisticated completion for LaTeX commands.
   // See `defaults/images.json` for examples.
+  // You can also define custom expander for render.
   "renderMode": "string",
 
   // Suffix for a text-editor command;

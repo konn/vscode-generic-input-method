@@ -11,7 +11,11 @@ import {
   Disposable,
   TextEditor
 } from "vscode";
-import InputMethod, { InputMethodConf } from "./input_method";
+import InputMethod, {
+  InputMethodConf,
+  Expander,
+  Expanders
+} from "./input_method";
 import GenericInputMethodAPI from "./api";
 
 const registered: Map<string, [InputMethod, Disposable[]]> = new Map();
@@ -43,7 +47,7 @@ export function activate(context: ExtensionContext): GenericInputMethodAPI {
     if (cmd_name) {
       let pickCommand = commands.registerTextEditorCommand(
         `extension.complete.${cmd_name}`,
-        (editor, _edit) => im.invokeQuickPick(editor)
+        editor => im.invokeQuickPick(editor)
       );
       desps.push(pickCommand);
       context.subscriptions.push(pickCommand);
@@ -51,6 +55,15 @@ export function activate(context: ExtensionContext): GenericInputMethodAPI {
   };
 
   inputMethods.forEach(registerInputMethod);
+
+  const registerExpander = (name: string, expand: Expander): boolean => {
+    if (!Expanders.has(name)) {
+      return false;
+    } else {
+      Expanders.set(name, expand);
+      return true;
+    }
+  };
 
   const invokeInputMethod = async (
     editor: TextEditor,
@@ -99,7 +112,8 @@ export function activate(context: ExtensionContext): GenericInputMethodAPI {
         }
       }),
     registerInputMethod,
-    invokeInputMethod
+    invokeInputMethod,
+    registerExpander
   };
 
   return api;
