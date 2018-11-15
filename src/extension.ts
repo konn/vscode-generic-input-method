@@ -57,7 +57,7 @@ export function activate(context: ExtensionContext): GenericInputMethodAPI {
   inputMethods.forEach(registerInputMethod);
 
   const registerExpander = (name: string, expand: Expander): boolean => {
-    if (!Expanders.has(name)) {
+    if (Expanders.has(name)) {
       return false;
     } else {
       Expanders.set(name, expand);
