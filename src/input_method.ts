@@ -32,20 +32,24 @@ export default class InputMethod implements CompletionItemProvider {
   public commandName?: string;
 
   private completionItems: CompletionItem[];
-  private dictionary: InputMethodItem[];
+  public dictionary: InputMethodItem[];
+  private showQuickPick?: (
+    im: InputMethod,
+    editor: TextEditor,
+    forced?: boolean
+  ) => any;
 
   constructor(context: ExtensionContext, conf: InputMethodConf) {
     this.name = conf.name;
     this.languages = conf.languages;
     this.triggers = conf.triggers;
     this.dictionary = [];
+    this.showQuickPick = conf.showQuickPick;
     const renderModeSeed = conf.renderMode
       ? conf.renderMode
       : RenderMode.Snippet;
     if (typeof renderModeSeed === "string") {
-      if (renderModeSeed === RenderMode.LaTeXCommand) {
-        this.renderMode = LaTeXExpander;
-      } else if (renderModeSeed === RenderMode.Snippet) {
+      if (renderModeSeed === RenderMode.Snippet) {
         this.renderMode = SimpleExpander;
       } else if (renderModeSeed === RenderMode.String) {
         this.renderMode = RawStringExpander;
@@ -142,18 +146,29 @@ export default class InputMethod implements CompletionItemProvider {
   }
 
   public invokeQuickPick(editor: TextEditor, forced: boolean = false) {
-    if (forced || this.languages.some(i => i === editor.document.languageId)) {
-      const picks: Thenable<RenderableQuickPickItem[]> = this.quickPickItems();
-      let selection: string | undefined;
-      if (!editor.selection.isEmpty) {
-        selection = editor.document.getText(editor.selection);
-      }
-      window.showQuickPick(picks).then(item => {
-        if (!item) {
-          return;
+    if (this.showQuickPick) {
+      this.showQuickPick(this, editor, forced);
+    } else {
+      if (
+        forced ||
+        this.languages.some(i => i === editor.document.languageId)
+      ) {
+        const picks: Thenable<
+          RenderableQuickPickItem[]
+        > = this.quickPickItems().then(items => {
+          return items;
+        });
+        let selection: string | undefined;
+        if (!editor.selection.isEmpty) {
+          selection = editor.document.getText(editor.selection);
         }
-        editor.insertSnippet(item.toSnippet(selection));
-      });
+        window.showQuickPick(picks).then(item => {
+          if (!item) {
+            return;
+          }
+          editor.insertSnippet(item.toSnippet(selection));
+        });
+      }
     }
   }
 }
@@ -180,122 +195,13 @@ export interface InputMethodItem extends ToSnippet {
   body: string;
   description?: string;
 }
-
-export enum CommandType {
-  Maketitle = "maketitle",
-  Environment = "environment",
-  Section = "section",
-  Text = "text",
-  Large = "large"
-}
-
-export interface ArgSpec {
-  kind: ArgKind;
-  candidates?: string[];
-}
-
-/**
- * render_argspec
- */
-function render_argspec(
-  selection: string
-): (spec: ArgSpec, i: number) => string {
-  return function(value: ArgSpec, index: number): string {
-    let rendered = "";
-    let cands = value.candidates;
-    if (cands) {
-      rendered = `\${${index}|${cands.join(",")}|}`;
-    } else if (selection.length > 0 && index === 0) {
-      rendered = selection;
-    } else {
-      rendered = `\${${index}}`;
-    }
-    if (value.kind === ArgKind.Fixed) {
-      rendered = `{${rendered}}`;
-    } else if (value.kind === ArgKind.Optional) {
-      rendered = `[${rendered}]`;
-    }
-    return rendered;
-  };
-}
-
-export enum ArgKind {
-  Fixed = "fixed",
-  Optional = "optional"
-}
-
-export interface LaTeXInputMethodItemConfig {
-  label: string;
-  body: string;
-  filterText: string;
-  description: string;
-  type?: CommandType;
-  args?: ArgSpec[];
-}
-
-export class LaTeXInputMethodItem implements InputMethodItem {
-  public label: string;
-  public body: string;
-  public description: string;
-  public type?: CommandType;
-  public args?: ArgSpec[];
-  constructor(item: LaTeXInputMethodItemConfig) {
-    this.label = item.label;
-    this.body = item.body;
-    this.description = item.description;
-    this.type = item.type;
-    this.args = item.args;
-  }
-
-  /**
-   * render
-   */
-  public toSnippet(selection: string = ""): SnippetString {
-    let rendered = "";
-
-    let args = (this.args || []).map(render_argspec(selection)).join("");
-
-    if (this.type === CommandType.Environment) {
-      if (selection) {
-        rendered = `\\begin{${this.body}}${args}
-  ${selection}
-\\end{${this.body}}`;
-      } else {
-        rendered = `\\begin{${this.body}}${args}
-  $1
-\\end{${this.body}}`;
-      }
-    } else if (this.type === CommandType.Large) {
-      if (selection) {
-        rendered = `{\\${this.body} ${selection}}`;
-      } else {
-        rendered = `{\\${this.body} $1}`;
-      }
-    } else if (this.type === CommandType.Section) {
-      if (!this.args || this.args.length === 0) {
-        if (selection.length === 0) {
-          rendered = `\\${this.body}{$1}`;
-        } else {
-          rendered = `\\${this.body}{${selection}}`;
-        }
-      } else {
-        rendered = `\\${this.body}${args}`;
-      }
-    } else if (this.type === CommandType.Text) {
-      rendered = this.body;
-    }
-    return new SnippetString(rendered);
-  }
-}
-
 export interface ToSnippet {
   toSnippet(selection?: string): SnippetString;
 }
 
 export enum RenderMode {
   Snippet = "snippet",
-  String = "string",
-  LaTeXCommand = "latex"
+  String = "string"
 }
 
 export interface RenderableQuickPickItem extends QuickPickItem, ToSnippet {}
@@ -307,6 +213,11 @@ export interface InputMethodConf {
   dictionary: (InputMethodItemConfig | string)[] | string;
   renderMode?: RenderMode | string | Expander;
   commandName?: string;
+  showQuickPick?: (
+    im: InputMethod,
+    editor: TextEditor,
+    forced?: boolean
+  ) => any;
 }
 
 export interface InputMethodItemConfig {
@@ -324,6 +235,3 @@ export const RawStringExpander: Expander = i => {
   i.body = i.body.replace("$", "\\$").replace("}", "\\}");
   return new SimpleInputMethodItem(i);
 };
-
-export const LaTeXExpander: Expander = i =>
-  new LaTeXInputMethodItem(i as LaTeXInputMethodItemConfig);

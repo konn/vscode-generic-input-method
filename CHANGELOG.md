@@ -3,6 +3,7 @@
 ## [0.0.8]
 
 - Moves LaTeX-related functionalities to [CaTeX] extension.
+- Custom QuickPick invoker
 - Fixes Expander registration logic
 
 [CaTeX]: https://marketplace.visualstudio.com/items?itemName=mr-konn.catex

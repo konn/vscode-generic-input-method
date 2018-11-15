@@ -20,6 +20,16 @@ import GenericInputMethodAPI from "./api";
 
 const registered: Map<string, [InputMethod, Disposable[]]> = new Map();
 
+function isInputMethodConf(
+  im: InputMethodConf | InputMethod
+): im is InputMethodConf {
+  const casted = <InputMethod>im;
+  return (
+    casted.provideCompletionItems === undefined ||
+    casted.invokeQuickPick === undefined
+  );
+}
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: ExtensionContext): GenericInputMethodAPI {
@@ -31,7 +41,10 @@ export function activate(context: ExtensionContext): GenericInputMethodAPI {
   );
 
   const registerInputMethod = (imConf: InputMethodConf) => {
-    const im = new InputMethod(context, imConf);
+    const im: InputMethod = isInputMethodConf(imConf)
+      ? new InputMethod(context, imConf)
+      : imConf;
+
     registered.set(im.name, [im, []]);
     const desps: Disposable[] = (registered.get(im.name) || [undefined, []])[1];
     im.languages.forEach(lang => {
