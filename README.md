@@ -7,9 +7,13 @@ It can be used as a [YaTeX][yatex]-like image completion for LaTeX or Unicode Ma
 
 ## Features
 
-- [YaTeX][yatex]-like image-completion for LaTeX
+- ~~[YaTeX][yatex]-like image-completion for LaTeX~~
+  - Since version 0.0.8, LaTeX-related functionalities are
+    moved to [CaTeX] extension.
 - Unicode Math input for Markdown
 - Ability to configure your own custom input methods!
+
+[CaTeX]: https://marketplace.visualstudio.com/items?itemName=mr-konn.catex
 
 ## Demos
 
@@ -41,9 +45,8 @@ Each input method is defined as follows:
   "triggers": ["\\"],
 
   // How to render each items?
-  // Available: "string", "snippet" or "latex".
+  // Available: "string" or "snippet"; other extension can add more.
   // `string` just prints the content of "body" property.
-  // `latex` provides more sophisticated completion for LaTeX commands.
   // See `defaults/images.json` for examples.
   // You can also define custom expander for render.
   "renderMode": "string",
@@ -90,8 +93,9 @@ function async activate(context: ExtensionContext) {
 }
 ```
 
-See [`redtt-diagnostics`][redtt-diag] for an example usage.
+See [CaTeX][catex-repo] and [`redtt-diagnostics`][redtt-diag] for an example usage.
 
+[catex-repo]: https://github.com/konn/catex
 [redtt-diag]: https://github.com/konn/vscode-redtt-diagnostics
 
 ### Invoking Input Method Forcedly

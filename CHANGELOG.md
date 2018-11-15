@@ -1,5 +1,11 @@
 # Change Log
 
+## [0.0.8]
+
+- Moves LaTeX-related functionalities to [CaTeX] extension.
+
+[CaTeX]: https://marketplace.visualstudio.com/items?itemName=mr-konn.catex
+
 ## [0.0.7]
 
 - Uses `body` field if the `description` misses.

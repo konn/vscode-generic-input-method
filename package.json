@@ -1,6 +1,6 @@
 {
   "name": "generic-input-method",
-  "displayName": "Generic Input Method for Unicode and LaTeX",
+  "displayName": "Generic Input Method",
   "description": "A generic input method which is suitable for YaTeX-like image completion for LaTeX or Unicode Symbol input for theorem provers such as Lean or Agda.",
   "version": "0.0.7",
   "publisher": "mr-konn",
@@ -31,18 +31,6 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.complete.latex.greek",
-        "title": "Complete Greek"
-      },
-      {
-        "command": "extension.complete.latex.image",
-        "title": "Complete by Image"
-      },
-      {
-        "command": "extension.complete.latex.font",
-        "title": "Complete Math Font"
-      },
-      {
         "title": "Invoke Input Method",
         "command": "extension.input-methods.invoke"
       }
@@ -57,42 +45,6 @@
             "description": "Input Method Definitions",
             "type": "array",
             "default": [
-              {
-                "name": "LaTeX Font Completion",
-                "commandName": "latex.font",
-                "languages": [
-                  "latex"
-                ],
-                "triggers": [
-                  "@"
-                ],
-                "dictionary": "defaults/fonts.json",
-                "renderMode": "latex"
-              },
-              {
-                "name": "LaTeX Image Completion",
-                "commandName": "latex.image",
-                "languages": [
-                  "latex"
-                ],
-                "triggers": [
-                  ";"
-                ],
-                "dictionary": "defaults/images.json",
-                "renderMode": "latex"
-              },
-              {
-                "name": "LaTeX Image Completion",
-                "commandName": "latex.greek",
-                "languages": [
-                  "latex"
-                ],
-                "triggers": [
-                  ":"
-                ],
-                "dictionary": "defaults/greek.json",
-                "renderMode": "latex"
-              },
               {
                 "name": "Unicode Math",
                 "commandName": "text.math",
