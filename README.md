@@ -8,20 +8,13 @@ It can be used as a [YaTeX][yatex]-like image completion for LaTeX or Unicode Ma
 ## Features
 
 - ~~[YaTeX][yatex]-like image-completion for LaTeX~~
-  - Since version 0.0.8, LaTeX-related functionalities are
-    moved to [CaTeX] extension.
+  - Since version 0.0.8, LaTeX-related functionalities are moved to [CaTeX] extension.
 - Unicode Math input for Markdown
 - Ability to configure your own custom input methods!
 
 [CaTeX]: https://marketplace.visualstudio.com/items?itemName=mr-konn.catex
 
 ## Demos
-
-### Image and Greek completion for LaTeX
-
-![GIF Anime](images/image-and-greek.gif)
-
-![GIF Anime](images/image-invoked.gif)
 
 ### Unicode Math Input
 
