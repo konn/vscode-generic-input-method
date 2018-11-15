@@ -5,14 +5,10 @@
   "version": "0.0.7",
   "publisher": "mr-konn",
   "keywords": [
-    "LaTeX",
     "Unicode",
     "Math",
     "Theorem Prover",
-    "Image Completion",
-    "Greek Completion",
-    "Input Method",
-    "Shape completion"
+    "Input Method"
   ],
   "engines": {
     "vscode": "^1.28.0"
@@ -137,6 +133,9 @@
     "watch": "tsc -watch -p ./",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  },
+  "dependencies": {
+    "path": "*"
   },
   "devDependencies": {
     "typescript": "^2.6.1",

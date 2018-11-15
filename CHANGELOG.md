@@ -5,6 +5,7 @@
 - Moves LaTeX-related functionalities to [CaTeX] extension.
 - Custom QuickPick invoker
 - Fixes Expander registration logic
+- Path reference now respects absolute paths
 
 [CaTeX]: https://marketplace.visualstudio.com/items?itemName=mr-konn.catex
 

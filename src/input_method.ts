@@ -16,6 +16,7 @@ import {
 } from "vscode";
 import { readFileSync } from "fs";
 import { InputMethodException } from "./exception";
+import * as path from "path";
 
 const CHAR_SPACE: number = 32;
 const CHAR_TILDE: number = 126;
@@ -70,8 +71,12 @@ export default class InputMethod implements CompletionItemProvider {
 
     this.commandName = conf.commandName;
 
-    function parseFile(path: string) {
-      return JSON.parse(readFileSync(context.asAbsolutePath(path)).toString());
+    function parseFile(fp: string) {
+      if (!path.isAbsolute(fp)) {
+        fp = context.asAbsolutePath(fp);
+      }
+
+      return JSON.parse(readFileSync(fp).toString());
     }
 
     const dictSeed = conf.dictionary;
