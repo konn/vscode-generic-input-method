@@ -31,7 +31,6 @@
         "command": "extension.input-methods.invoke"
       }
     ],
-    "keybindings": [],
     "configuration": [
       {
         "type": "object",
