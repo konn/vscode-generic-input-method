@@ -107,12 +107,12 @@ export default class InputMethod implements CompletionItemProvider {
     }));
   }
 
-  public provideCompletionItems(
+  public async provideCompletionItems(
     document: TextDocument,
     position: Position,
     token: CancellationToken,
     context: CompletionContext
-  ): CompletionItem[] {
+  ): Promise<CompletionItem[]> {
     if (
       context.triggerKind === CompletionTriggerKind.TriggerCharacter &&
       this.triggers.some(c => c === context.triggerCharacter)
@@ -129,7 +129,7 @@ export default class InputMethod implements CompletionItemProvider {
         return item;
       });
     } else {
-      return [];
+      throw Promise.reject();
     }
   }
 
@@ -150,7 +150,7 @@ export default class InputMethod implements CompletionItemProvider {
     );
   }
 
-  public invokeQuickPick(editor: TextEditor, forced: boolean = false) {
+  public async invokeQuickPick(editor: TextEditor, forced: boolean = false) {
     if (this.showQuickPick) {
       this.showQuickPick(this, editor, forced);
     } else {
@@ -158,21 +158,16 @@ export default class InputMethod implements CompletionItemProvider {
         forced ||
         this.languages.some(i => i === editor.document.languageId)
       ) {
-        const picks: Thenable<
-          RenderableQuickPickItem[]
-        > = this.quickPickItems().then(items => {
-          return items;
-        });
+        const picks: RenderableQuickPickItem[] = await this.quickPickItems();
         let selection: string | undefined;
         if (!editor.selection.isEmpty) {
           selection = editor.document.getText(editor.selection);
         }
-        window.showQuickPick(picks).then(item => {
-          if (!item) {
-            return;
-          }
-          editor.insertSnippet(item.toSnippet(selection));
-        });
+        const item = await window.showQuickPick(picks);
+        if (!item) {
+          return Promise.reject();
+        }
+        editor.insertSnippet(item.toSnippet(selection));
       }
     }
   }
