@@ -134,7 +134,8 @@
     "test": "npm run compile && node ./node_modules/vscode/bin/test"
   },
   "dependencies": {
-    "path": "*"
+    "path": "*",
+    "event-stream": "3.3.4"
   },
   "devDependencies": {
     "typescript": "^2.6.1",
