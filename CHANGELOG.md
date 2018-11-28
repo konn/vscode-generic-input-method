@@ -1,6 +1,6 @@
 # Change Log
 
-## [0.0.10]
+## [0.0.10] - 2018-11-28
 
 - Automatic settings update
 

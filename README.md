@@ -1,5 +1,8 @@
 # Generic Input Method for VSCode
 
+[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/mr-konn.generic-input-method.svg)](https://marketplace.visualstudio.com/items?itemName=mr-konn.generic-input-method)
+[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/d/mr-konn.generic-input-method.svg)](https://marketplace.visualstudio.com/items?itemName=mr-konn.generic-input-method)
+
 This extension provides a generic input method within VSCode.
 It can be used as a [YaTeX][yatex]-like image completion for LaTeX or Unicode Math input for theorem provers such as Agda or Lean.
 
@@ -11,6 +14,7 @@ It can be used as a [YaTeX][yatex]-like image completion for LaTeX or Unicode Ma
   - Since version 0.0.8, LaTeX-related functionalities are moved to [CaTeX] extension.
 - Unicode Math input for Markdown
 - Ability to configure your own custom input methods!
+- Automatic configuration update
 
 [CaTeX]: https://marketplace.visualstudio.com/items?itemName=mr-konn.catex
 
