@@ -13,7 +13,8 @@ import {
   QuickPickItem,
   TextEditor,
   window,
-  workspace
+  workspace,
+  ConfigurationChangeEvent
 } from "vscode";
 import { readFileSync } from "fs";
 import { InputMethodException } from "./exception";
@@ -47,55 +48,68 @@ export default class InputMethod implements CompletionItemProvider {
     forced?: boolean
   ) => any;
 
-  constructor(context: ExtensionContext, confSeed: InputMethodConf | string) {
+  constructor(context: ExtensionContext, confSeed: InputMethodConf) {
     let conf: InputMethodConf;
 
-    if (typeof confSeed === "string") {
+    if (confSeed.configurationName) {
+      const confKey = confSeed.configurationName;
       const confer:
         | InputMethodConf
-        | undefined = workspace.getConfiguration().get(confSeed);
+        | undefined = workspace.getConfiguration().get(confKey);
       if (!confer) {
         throw new InputMethodException(
           "Configuration scope error",
           `Configuration scope "${confSeed}" not found`
         );
       } else {
-        const updater = workspace.onDidChangeConfiguration(
-          evt => {
-            if (evt.affectsConfiguration(confSeed)) {
-              const val:
-                | undefined
-                | InputMethodConf = workspace.getConfiguration().get(confSeed);
-              if (val) {
-                this.updateConf(context, val);
-              } else {
-                window
-                  .showErrorMessage(
-                    `Configuration ${confSeed} updated, but ill-formed`,
-                    "Revert"
-                  )
-                  .then(msg => {
-                    if (msg) {
-                      switch (msg) {
-                        case "Revert":
-                          workspace
-                            .getConfiguration()
-                            .update(confSeed, this.oldConf);
-                      }
+        const fallback = confSeed.onDidChangeConfiguration;
+        let updateIt = (v: any) => {
+          this.updateConf(context, v);
+        };
+        if (fallback) {
+          updateIt = v => {
+            const newConf = Object.assign({}, this.oldConf);
+            newConf.dictionary = v;
+            this.updateConf(context, newConf);
+          };
+        }
+
+        const onChange = (evt: ConfigurationChangeEvent) => {
+          if (evt.affectsConfiguration(confKey)) {
+            const val = workspace.getConfiguration().get(confKey);
+            if (val) {
+              updateIt(val);
+            } else {
+              window
+                .showErrorMessage(
+                  `Configuration ${confSeed} updated, but ill-formed`,
+                  "Revert"
+                )
+                .then(msg => {
+                  if (msg) {
+                    switch (msg) {
+                      case "Revert":
+                        workspace
+                          .getConfiguration()
+                          .update(confKey, this.oldConf);
                     }
-                  });
-              }
+                  }
+                });
             }
-          },
+          }
+        };
+
+        const updater = workspace.onDidChangeConfiguration(
+          onChange,
           this,
           context.subscriptions
         );
+
         context.subscriptions.push(updater);
-        conf = confer;
       }
-    } else {
-      conf = confSeed;
     }
+    conf = confSeed;
+
     this.updateConf(context, conf);
   }
 
@@ -281,6 +295,12 @@ export interface InputMethodConf {
     editor: TextEditor,
     forced?: boolean
   ) => any;
+
+  configurationName?: string;
+  onDidChangeConfiguration?: <T>(
+    context: ExtensionContext,
+    config: T
+  ) => Thenable<InputMethodItemConfig[]>;
 }
 
 export interface InputMethodItemConfig {

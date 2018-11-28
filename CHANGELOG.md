@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.0.10]
+
+- Automatic settings update
+
+## [0.0.9] - 2018-11-27
+
+- Workaround for `event-stream` vulnerability
+
 ## [0.0.8]
 
 - Moves LaTeX-related functionalities to [CaTeX] extension.
