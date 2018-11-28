@@ -62,14 +62,15 @@ export default class InputMethod implements CompletionItemProvider {
           `Configuration scope "${confSeed}" not found`
         );
       } else {
-        const fallback = confSeed.onDidChangeConfiguration;
+        const builder = confSeed.onDidChangeConfiguration;
         let updateIt = (v: any) => {
           this.updateConf(context, v);
         };
-        if (fallback) {
+        if (builder) {
           updateIt = v => {
             const newConf = Object.assign({}, this.oldConf);
-            newConf.dictionary = v;
+            const is = builder(v);
+            newConf.dictionary = is;
             this.updateConf(context, newConf);
           };
         }
@@ -194,17 +195,19 @@ export default class InputMethod implements CompletionItemProvider {
       context.triggerKind === CompletionTriggerKind.TriggerCharacter &&
       this.triggers.some(c => c === context.triggerCharacter)
     ) {
-      return this.completionItems.map(item => {
-        let start = position;
-        if (position.character > 0) {
-          start = new Position(position.line, position.character - 1);
-        }
-        let range = new Range(start, position);
-        if (document.getText(range) === context.triggerCharacter) {
-          item.additionalTextEdits = [TextEdit.delete(range)];
-        }
-        return item;
-      });
+      return Promise.all(
+        this.completionItems.map(async item => {
+          let start = position;
+          if (position.character > 0) {
+            start = new Position(position.line, position.character - 1);
+          }
+          let range = new Range(start, position);
+          if (document.getText(range) === context.triggerCharacter) {
+            item.additionalTextEdits = [TextEdit.delete(range)];
+          }
+          return item;
+        })
+      );
     } else {
       throw Promise.reject();
     }
@@ -213,17 +216,15 @@ export default class InputMethod implements CompletionItemProvider {
   /**
    * quickPickItems
    */
-  public quickPickItems(): Thenable<RenderableQuickPickItem[]> {
-    return new Promise(resolve =>
-      resolve(
-        this.dictionary.map(i => {
-          return {
-            description: i.description,
-            label: i.label,
-            toSnippet: (e?: string) => i.toSnippet(e)
-          };
-        })
-      )
+  public async quickPickItems(): Promise<RenderableQuickPickItem[]> {
+    return Promise.all(
+      this.dictionary.map(async i => {
+        return {
+          description: i.description,
+          label: i.label,
+          toSnippet: (e?: string) => i.toSnippet(e)
+        };
+      })
     );
   }
 
@@ -297,10 +298,7 @@ export interface InputMethodConf {
   ) => any;
 
   configurationName?: string;
-  onDidChangeConfiguration?: <T>(
-    context: ExtensionContext,
-    config: T
-  ) => Thenable<InputMethodItemConfig[]>;
+  onDidChangeConfiguration?: (config: any) => InputMethodItemConfig[];
 }
 
 export interface InputMethodItemConfig {

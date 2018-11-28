@@ -30,13 +30,16 @@ function isInputMethodConf(
   );
 }
 
+const INPUT_METHOD_DEFINITIONS_KEY = "generic-input-methods.input-methods";
+const defaultInputMethodNames: Set<string> = new Set();
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: ExtensionContext): GenericInputMethodAPI {
   let conf: WorkspaceConfiguration = workspace.getConfiguration();
 
   let inputMethods: InputMethodConf[] = conf.get(
-    "generic-input-methods.input-methods",
+    INPUT_METHOD_DEFINITIONS_KEY,
     []
   );
 
@@ -44,7 +47,7 @@ export function activate(context: ExtensionContext): GenericInputMethodAPI {
     const im: InputMethod = isInputMethodConf(imConf)
       ? new InputMethod(context, imConf)
       : imConf;
-
+    defaultInputMethodNames.add(im.name);
     registered.set(im.name, [im, []]);
     const desps: Disposable[] = (registered.get(im.name) || [undefined, []])[1];
     im.languages.forEach(lang => {
@@ -68,6 +71,39 @@ export function activate(context: ExtensionContext): GenericInputMethodAPI {
   };
 
   inputMethods.forEach(registerInputMethod);
+  workspace.onDidChangeConfiguration(
+    evt => {
+      if (evt.affectsConfiguration(INPUT_METHOD_DEFINITIONS_KEY)) {
+        console.log("UPDATED!");
+        let inputMethods: InputMethodConf[] = workspace
+          .getConfiguration()
+          .get(INPUT_METHOD_DEFINITIONS_KEY, []);
+        defaultInputMethodNames.forEach(v => {
+          if (inputMethods.every(i => i.name !== v)) {
+            defaultInputMethodNames.delete(v);
+            const target = registered.get(v);
+            if (target) {
+              target[1].forEach(d => d.dispose());
+              registered.delete(v);
+            }
+          }
+        });
+        inputMethods.forEach(imConf => {
+          let im = registered.get(imConf.name);
+          if (im) {
+            console.log(
+              `Updating: ${imConf.name} with ${JSON.stringify(imConf, null, 2)}`
+            );
+            im[0].updateConf(context, imConf);
+          } else {
+            registerInputMethod(imConf);
+          }
+        });
+      }
+    },
+    null,
+    context.subscriptions
+  );
 
   const registerExpander = (name: string, expand: Expander): boolean => {
     if (Expanders.has(name)) {
