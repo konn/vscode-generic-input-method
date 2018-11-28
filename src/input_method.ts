@@ -12,7 +12,8 @@ import {
   TextEdit,
   QuickPickItem,
   TextEditor,
-  window
+  window,
+  workspace
 } from "vscode";
 import { readFileSync } from "fs";
 import { InputMethodException } from "./exception";
@@ -26,21 +27,83 @@ const ASCII_CHARS: string[] = Array(CHAR_TILDE - CHAR_SPACE + 1)
 export const Expanders: Map<string, Expander> = new Map();
 
 export default class InputMethod implements CompletionItemProvider {
-  public name: string;
-  public languages: string[];
-  public triggers: string[];
-  public renderMode: Expander;
+  public name: string = "Dummy";
+  public languages: string[] = [];
+  public triggers: string[] = [];
+  public renderMode: Expander = SimpleExpander;
   public commandName?: string;
 
-  private completionItems: CompletionItem[];
-  public dictionary: InputMethodItem[];
+  private oldConf: InputMethodConf = {
+    name: "",
+    languages: [],
+    triggers: [],
+    dictionary: []
+  };
+  private completionItems: CompletionItem[] = [];
+  public dictionary: InputMethodItem[] = [];
   private showQuickPick?: (
     im: InputMethod,
     editor: TextEditor,
     forced?: boolean
   ) => any;
 
-  constructor(context: ExtensionContext, conf: InputMethodConf) {
+  constructor(context: ExtensionContext, confSeed: InputMethodConf | string) {
+    let conf: InputMethodConf;
+
+    if (typeof confSeed === "string") {
+      const confer:
+        | InputMethodConf
+        | undefined = workspace.getConfiguration().get(confSeed);
+      if (!confer) {
+        throw new InputMethodException(
+          "Configuration scope error",
+          `Configuration scope "${confSeed}" not found`
+        );
+      } else {
+        const updater = workspace.onDidChangeConfiguration(
+          evt => {
+            if (evt.affectsConfiguration(confSeed)) {
+              const val:
+                | undefined
+                | InputMethodConf = workspace.getConfiguration().get(confSeed);
+              if (val) {
+                this.updateConf(context, val);
+              } else {
+                window
+                  .showErrorMessage(
+                    `Configuration ${confSeed} updated, but ill-formed`,
+                    "Revert"
+                  )
+                  .then(msg => {
+                    if (msg) {
+                      switch (msg) {
+                        case "Revert":
+                          workspace
+                            .getConfiguration()
+                            .update(confSeed, this.oldConf);
+                      }
+                    }
+                  });
+              }
+            }
+          },
+          this,
+          context.subscriptions
+        );
+        context.subscriptions.push(updater);
+        conf = confer;
+      }
+    } else {
+      conf = confSeed;
+    }
+    this.updateConf(context, conf);
+  }
+
+  public updateConf<T extends InputMethodConf>(
+    context: ExtensionContext,
+    conf: T
+  ) {
+    this.oldConf = conf;
     this.name = conf.name;
     this.languages = conf.languages;
     this.triggers = conf.triggers;
