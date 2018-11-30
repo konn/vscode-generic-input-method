@@ -74,7 +74,6 @@ export function activate(context: ExtensionContext): GenericInputMethodAPI {
   workspace.onDidChangeConfiguration(
     evt => {
       if (evt.affectsConfiguration(INPUT_METHOD_DEFINITIONS_KEY)) {
-        console.log("UPDATED!");
         let inputMethods: InputMethodConf[] = workspace
           .getConfiguration()
           .get(INPUT_METHOD_DEFINITIONS_KEY, []);
@@ -91,9 +90,6 @@ export function activate(context: ExtensionContext): GenericInputMethodAPI {
         inputMethods.forEach(imConf => {
           let im = registered.get(imConf.name);
           if (im) {
-            console.log(
-              `Updating: ${imConf.name} with ${JSON.stringify(imConf, null, 2)}`
-            );
             im[0].updateConf(context, imConf);
           } else {
             registerInputMethod(imConf);
