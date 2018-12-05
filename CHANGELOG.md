@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.0.11] - 2018-12-05
+
+- Revives `defaults/greeks.json` dictionary
+
 ## [0.0.10] - 2018-11-28
 
 - Automatic settings update
