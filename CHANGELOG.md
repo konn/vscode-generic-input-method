@@ -2,7 +2,8 @@
 
 ## [0.0.11] - 2018-12-05
 
-- Revives `defaults/greeks.json` dictionary
+- Revives `defaults/greeks.json` dictionary from [CaTeX] extension.
+  There is no default input-method using `defaults/greeks.json`, but you can use it to implement custom input methods for other extensions.
 
 ## [0.0.10] - 2018-11-28
 
