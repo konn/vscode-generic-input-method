@@ -135,7 +135,8 @@
   },
   "dependencies": {
     "path": "*",
-    "event-stream": "3.3.4"
+    "event-stream": ">= 3.3.4",
+    "tar": ">=4.4.2"
   },
   "devDependencies": {
     "typescript": "^2.6.1",
