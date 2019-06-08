@@ -136,13 +136,17 @@
   "dependencies": {
     "path": "*",
     "event-stream": ">= 3.3.4",
-    "tar": ">=4.4.2"
+    "tar": ">=4.4.2",
+    "querystringify": ">=2.0.0",
+    "braces": ">=2.3.1",
+    "js-yaml": ">=3.13.1",
+    "fstream": ">=1.0.12"
   },
   "devDependencies": {
-    "typescript": "^2.6.1",
-    "vscode": "^1.1.21",
-    "tslint": "^5.8.0",
+    "@types/mocha": "^2.2.42",
     "@types/node": "^8.10.25",
-    "@types/mocha": "^2.2.42"
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.34"
   }
 }
