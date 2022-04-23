@@ -8,5 +8,8 @@
   },
   // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
   "typescript.tsc.autoDetect": "off",
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "licenser.author": "Hiromi ISHII",
+  "licenser.license": "BSD3",
+  "licenser.projectName": "generic-input-method"
 }
